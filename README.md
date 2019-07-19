@@ -51,17 +51,17 @@ By using `--host`, `--user`, `--password` options:
 To define dynamic hosts configuration, use `hosts.pl6`, this should
 be Perl6 script that returns `@Array` object with following structure:
 
-  [
-    %( 
-        ip => $host-ip-address # Host Ip Address
-        user => $user # Ssh user, optional
-        password => $password # Ssh password, optional
-    ),
-    %(
-        # next host
-    )
-  ]
-
+    [
+      %( 
+          ip => $host-ip-address # Host Ip Address
+          user => $user # Ssh user, optional
+          password => $password # Ssh password, optional
+      ),
+      %(
+          # next host
+      )
+    ]
+  
 For example:
 
     my %state = task-run "worker nodes", "ambari-hosts", %(
