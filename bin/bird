@@ -1,0 +1,3 @@
+#!perl6
+
+say "here we go";
