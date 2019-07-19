@@ -1,6 +1,6 @@
 use v6;
 use Test;
-use BlueBird;
+use Bird;
 plan 1;
 
 ok 1, 'Module loaded';

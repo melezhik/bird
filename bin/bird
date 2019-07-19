@@ -1,3 +1,18 @@
 #!perl6
 
-say "here we go";
+use Bird;
+
+sub MAIN (
+
+  Bool :$verbose = False, 
+  Str  :$host,
+  Str  :$user,
+  Str  :$password,
+
+)
+
+{
+
+  say "here we go";
+
+}

@@ -1,4 +1,4 @@
-# BluerBird
+# Bird
 
 Perl6 alternative to Chef Inspec
 

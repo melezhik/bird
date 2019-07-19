@@ -4,16 +4,14 @@
   ],
   "build-depends" : [ ],
   "depends" : [
-    "Sparrow6",
-    "File::Directory::Tree",
-    "YAMLish"
+    "Sparrow6"
   ],
-  "description" : "BlueBird - Perl6 Alternative to Chef Inspec",
+  "description" : "Bird - Perl6 Alternative to Chef Inspec",
   "license" : "Artistic-2.0",
   "name" : "bluebird",
   "perl" : "6.*",
   "provides" : {
-    "bluebird" : "lib/BlueBird.pm6"
+    "Bird" : "lib/Bird.pm6"
   },
   "resources" : [
   ],
