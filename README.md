@@ -1,6 +1,6 @@
 # SuperBird
 
-Perl6 alternative to chef inspec
+Perl6 alternative to Chef Inspec
 
 # Usage
 
@@ -84,3 +84,6 @@ You can omit `user` and `password` in hosts `@Array`, setting them from command 
 
 Alexey Melezhik
 
+# See Also
+
+[Chef Inspec](https://www.inspec.io/)
