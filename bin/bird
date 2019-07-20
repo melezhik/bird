@@ -1,6 +1,7 @@
 #!perl6
 
 use Bird;
+use Sparrow6::DSL;
 
 sub MAIN (
 
@@ -12,7 +13,29 @@ sub MAIN (
 )
 
 {
+  my @hosts;
 
-  say "here we go";
+  if "hosts.pl6".IO ~~ :f {
+    log("read hosts file from", "hosts.pl6");
+    @hosts = EVALFILE "hosts.pl6";
+  } elsif $host {
+    log("read host from command line", $host);
+    @hosts = $host
+  } else {
+      die "need host(s)"
+  }
+
+  log("cmd file", cmd-file());
+  log("check file", state-file());
+
+  EVALFILE "rules.pl6";
+
+  task-run "check my hosts", "ssh-bulk-check", %(
+    cmd => cmd-file(),
+    state => state-file(),
+    hosts => @hosts,
+    user => $user,
+    password => $password,
+  );
 
 }

@@ -2,6 +2,45 @@
 
 Perl6 alternative to Chef Inspec
 
+**rules.pl6**:
+
+    directory-exists "{%*ENV<HOME>}";
+    file-exists "{%*ENV<HOME>}/.bashrc";
+    directory-exists "{%*ENV<HOME>}/yyy";
+    
+`$ bird`:
+
+    bird:: [read hosts file from] [hosts.pl6]
+    bird:: [cmd file] [/home/melezhik/.bird/71214/cmd.sh]
+    bird:: [check file] [/home/melezhik/.bird/71214/state.check]
+    00:48:35 07/20/2019 [check my hosts] check host [127.0.0.1] ...
+    00:48:35 07/20/2019 [check my hosts] <<< dir /home/melezhik exists ?
+    00:48:35 07/20/2019 [check my hosts] dir exists
+    00:48:35 07/20/2019 [check my hosts] >>>
+    00:48:35 07/20/2019 [check my hosts] <<< file /home/melezhik/.bashrc exists ?
+    00:48:35 07/20/2019 [check my hosts] file exists
+    00:48:35 07/20/2019 [check my hosts] >>>
+    00:48:35 07/20/2019 [check my hosts] <<< dir /home/melezhik/yyy exists ?
+    00:48:35 07/20/2019 [check my hosts] >>>
+    00:48:35 07/20/2019 [check my hosts] end check host [127.0.0.1]
+    [task check] [dir /home/melezhik exists ?]
+    [task check] stdout match (r) <^^^ 'dir exists'> True
+    [task check] [file /home/melezhik/.bashrc exists ?]
+    [task check] stdout match (r) <^^^ 'file exists'> True
+    [task check] [dir /home/melezhik/yyy exists ?]
+    [task check] stdout match (r) <^^^ 'dir exists'> False
+    =================
+    TASK CHECK FAIL
+    
+# Install
+
+    zef install Bird
+
+Bird uses Sparrow6 plugin `ssh-bulk-check` to do it's work, so one need
+to setup Sparrow6 repository, for example:
+
+    export SP6_REPO=http://repo.southcentralus.cloudapp.azure.com
+
 # Usage
 
 Define rules:
@@ -49,20 +88,17 @@ By using `--host`, `--user`, `--password` options:
 ## Hosts.pl6
 
 To define dynamic hosts configuration, use `hosts.pl6`, this should
-be Perl6 script that returns `@Array` object with following structure:
+be Perl6 script that returns `@Array` of hosts:
 
     [
-      %( 
-          ip => $host-ip-address # Host Ip Address
-          user => $user # Ssh user, optional
-          password => $password # Ssh password, optional
-      ),
-      %(
-          # next host
-      )
+      '192.168.0.1',
+      'foo.bar.baz',
+      # so on
     ]
-  
+
 For example:
+
+    use Sparrow6::DSL;
 
     my %state = task-run "worker nodes", "ambari-hosts", %(
       ambari_host  => 'cluster.fqdn.host',
@@ -71,14 +107,8 @@ For example:
       cluster => "cluster01",
       node_type => "worker",
     );
-    
 
-    %state<hosts><>.map: { my %i = $_; %i<user> = 'ssh-admin', %i<password> = 'SshPassword'  }
-
-You can omit `user` and `password` in hosts `@Array`, setting them from command line:
-
-    bird --user=alex --password=PasSword
-
+    %state<hosts><>.map: { %i<ip> }
 
 # Author
 
