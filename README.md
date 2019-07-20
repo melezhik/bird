@@ -64,7 +64,7 @@ This is just plain Perl6 functions:
 
     file-exists "{%*ENV<HOME>}/.bashrc";
 
-A full list of DSL functions available [here](https://github.com/melezhik/bird/blob/master/documentation/dsl.md)
+The full list of DSL functions available [here](https://github.com/melezhik/bird/blob/master/documentation/dsl.md)
 
 # Ssh hosts
 
