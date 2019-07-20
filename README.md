@@ -1,6 +1,6 @@
 # Bird
 
-Perl6 alternative to Chef Inspec
+Bird - alternative to Chef Inspec and Goss, written in Perl6.
 
 **rules.pl6**:
 
