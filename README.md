@@ -51,9 +51,9 @@ Define rules:
     file-has-line "/home/bird/list.txt", "sparrow", "crow";
     file-has-permission "/home/bird/list.txt", %( read-all => true, write-all => true );
 
-Run checks
+Run checks:
 
-  bird --host=192.168.0.1 --user=alex --password=PasSword!
+    bird --host=192.168.0.1 --user=alex --password=PasSword!
 
 
 # Rules DSL
@@ -64,7 +64,7 @@ This is just plain Perl6 functions:
 
     file-exists "{%*ENV<HOME>}/.bashrc";
 
-A full list of DSL functions available [here](#)
+A full list of DSL functions available [here](https://github.com/melezhik/bird/blob/master/documentation/dsl.md)
 
 # Ssh hosts
 
