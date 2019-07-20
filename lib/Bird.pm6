@@ -19,41 +19,7 @@ our sub log ($header,$footer) is export {
   say "bird:: [$header] [$footer]"
 }
 
-our sub directory-exists ($path) is export {
-
-    update-cmd-file qq:to/HERE/;
-    echo '<<< dir $path exists ?'
-    test -d $path && echo dir exists
-    echo '>>>'
-    HERE
-
-    update-state-file qq:to/HERE/;
-    between: \{ ^^^ '<<< dir $path exists ?'  \} \{ ^^^ '>>>' \}
-      note: [dir $path exists ?]
-      regexp: ^^^ 'dir exists'
-    end:
-    HERE
-
-}
-
-our sub file-exists ($path) is export {
-
-    update-cmd-file qq:to/HERE/;
-    echo '<<< file $path exists ?'
-    test -f $path && echo file exists
-    echo '>>>'
-    HERE
-
-    update-state-file qq:to/HERE/;
-    between: \{ ^^^ '<<< file $path exists ?'  \} \{ ^^^ '>>>' \}
-      note: [file $path exists ?]
-      regexp: ^^^ 'file exists'
-    end:
-    HERE
-
-}
-
-sub update-cmd-file ($data) {
+our sub update-cmd-file ($data) is export {
 
   my $fh = open cmd-file(), :a;
 
@@ -63,7 +29,7 @@ sub update-cmd-file ($data) {
 
 }
 
-sub update-state-file ($data) {
+our sub update-state-file ($data) is export {
 
   my $fh = open state-file, :a;
 

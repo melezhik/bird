@@ -2,6 +2,8 @@
 
 use Bird;
 use Sparrow6::DSL;
+use Bird::DSL::File;
+use Bird::DSL::Directory;
 
 sub MAIN (
 

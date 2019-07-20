@@ -1,6 +1,6 @@
 # Bird
 
-Bird - alternative to Chef Inspec and Goss, written in Perl6.
+Bird - Lightweight Alternative to Chef Inspec Written in Perl6.
 
 **rules.pl6**:
 
@@ -58,21 +58,13 @@ Run checks
 
 # Rules DSL
 
-## file-exists $file-path
+Rules DSL is special language to validate states of Linux host.
 
-## file-has-line @arrays-of-lines
+This is just plain Perl6 functions:
 
-## file-has-permission $file-path, %permissions-hash
+    file-exists "{%*ENV<HOME>}/.bashrc";
 
-Permissions hash:
-
-* `read-all`
-* `write-all`
-* `execute-all`
-
-## package-is-installed $package-name
-
-## directory-exists $dir-path
+A full list of DSL functions available [here](#)
 
 # Ssh hosts
 

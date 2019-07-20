@@ -6,12 +6,14 @@
   "depends" : [
     "Sparrow6"
   ],
-  "description" : "Bird - Perl6 Alternative to Chef Inspec",
+  "description" : "Bird - Lightweight Alternative to Chef Inspec Written in Perl6",
   "license" : "Artistic-2.0",
   "name" : "bluebird",
   "perl" : "6.*",
   "provides" : {
-    "Bird" : "lib/Bird.pm6"
+    "Bird" : "lib/Bird.pm6",
+    "Bird::DSL::File" : "lib/Bird/DSL/File.pm6",
+    "Bird::DSL::Directory" : "lib/Bird/DSL/Directory.pm6"
   },
   "resources" : [
   ],
