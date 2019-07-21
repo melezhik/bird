@@ -7,7 +7,7 @@ Bird - Lightweight Alternative to Chef Inspec Written in Perl6.
     directory-exists "{%*ENV<HOME>}";
     file-exists "{%*ENV<HOME>}/.bashrc";
     directory-exists "{%*ENV<HOME>}/yyy";
-    
+
 `$ bird`:
 
     bird:: [read hosts file from] [hosts.pl6]
