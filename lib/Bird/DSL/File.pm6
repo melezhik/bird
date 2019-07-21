@@ -9,16 +9,15 @@ use Bird;
 our sub file-exists ($path) is export {
 
     update-cmd-file qq:to/HERE/;
-    echo '<<< file $path exists ?'
+    {cmd-header("file $path exists ?")}
     test -f $path && echo file exists
-    echo '>>>'
+    {cmd-footer()}
     HERE
 
     update-state-file qq:to/HERE/;
-    between: \{ ^^^ '<<< file $path exists ?'  \} \{ ^^^ '>>>' \}
-      note: [file $path exists ?]
+    {state-header("file $path exists ?")}
       regexp: ^^^ 'file exists'
-    end:
+    {state-footer()}
     HERE
 
 }

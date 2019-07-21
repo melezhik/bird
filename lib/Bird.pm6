@@ -38,3 +38,29 @@ our sub update-state-file ($data) is export {
   $fh.close;
 
 }
+
+our sub  cmd-header ($check) is export {
+
+  return "echo '<<< $check'"
+
+}
+
+our sub  cmd-footer () is export {
+
+  return "echo '<<<'"
+
+}
+
+our sub  state-header ($check) is export {
+
+  return (
+    "between: \{ ^^^ '<<< $check'  \} \{ ^^^ '>>>' \}",
+    " note: [$check]"
+  ).join("\n");
+}
+
+our sub  state-footer () is export {
+
+  return "end:"
+
+}
