@@ -17,12 +17,12 @@ sub MAIN (
 {
   my @hosts;
 
-  if "hosts.pl6".IO ~~ :f {
+  if $host {
+    log("read host from command line", $host);
+    @hosts = $host;
+  } elsif "hosts.pl6".IO ~~ :f {
     log("read hosts file from", "hosts.pl6");
     @hosts = EVALFILE "hosts.pl6";
-  } elsif $host {
-    log("read host from command line", $host);
-    @hosts = $host
   } else {
       die "need host(s)"
   }
