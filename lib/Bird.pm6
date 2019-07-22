@@ -47,7 +47,7 @@ our sub  cmd-header ($check) is export {
 
 our sub  cmd-footer () is export {
 
-  return "echo '<<<'"
+  return "echo '>>>'"
 
 }
 
