@@ -2,6 +2,7 @@
 
 use Bird;
 use Sparrow6::DSL;
+use Sparrow6::Task::Repository;
 use Bird::DSL::File;
 use Bird::DSL::Directory;
 
@@ -31,6 +32,8 @@ sub MAIN (
   log("check file", state-file());
 
   EVALFILE "rules.pl6";
+
+  Sparrow6::Task::Repository::Api.new->index-update();
 
   task-run "check my hosts", "ssh-bulk-check", %(
     cmd => cmd-file(),
