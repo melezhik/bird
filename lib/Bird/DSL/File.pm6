@@ -22,3 +22,19 @@ our sub file-exists ($path) is export {
 
 }
 
+our sub file-has-line ($path,@lines) is export {
+
+    update-cmd-file qq:to/HERE/;
+    {cmd-header("file $path has line {@lines.perl} ?")}
+    cat $path
+    {cmd-footer()}
+    HERE
+
+    update-state-file qq:to/HERE/;
+    {state-header("file $path has line {@lines.perl} ?")}
+    {@lines.join("\n")}
+    {state-footer()}
+    HERE
+
+}
+

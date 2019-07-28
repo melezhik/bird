@@ -12,7 +12,7 @@ File exists:
 
 A text file contains a lines of text:
 
-    file-has-line "{%*ENV<HOME>}/.bashrc", "EDITOR=nano", 'export SP6_REPO';
+    file-has-line "{%*ENV<HOME>}/.bashrc", [ "EDITOR=nano", 'export SP6_REPO' ];
 
 ## file-has-permission $file-path, %permissions-hash
 
@@ -34,7 +34,7 @@ Directory exists:
 
     directory-exists "{%*ENV<HOME>}/.sparrow6";
 
-## package-installed $package-name
+## package-installed @package-names
 
 Packages are installed:
 
