@@ -22,7 +22,7 @@ our sub file-exists ($path) is export {
 
 }
 
-our sub file-has-line ($path,@lines) is export {
+our sub file-has-line (Str:D $path,*@lines) is export {
 
     update-cmd-file qq:to/HERE/;
     {cmd-header("file $path has line {@lines.perl} ?")}
