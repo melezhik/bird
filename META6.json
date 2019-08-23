@@ -8,7 +8,7 @@
   ],
   "description" : "Bird - Lightweight Alternative to Chef Inspec Written in Perl6",
   "license" : "Artistic-2.0",
-  "name" : "bluebird",
+  "name" : "bird",
   "perl" : "6.*",
   "provides" : {
     "Bird" : "lib/Bird.pm6",
@@ -18,10 +18,10 @@
   "resources" : [
   ],
   "source-type" : "git",
-  "source-url" : "https://github.com/melezhik/bluebird",
+  "source-url" : "https://github.com/melezhik/bird",
   "support" : {
-    "bugtracker" : "https://github.com/melezhik/bluebird/issues",
-    "source" : "https://github.com/melezhik/bluebird.git"
+    "bugtracker" : "https://github.com/melezhik/bird/issues",
+    "source" : "https://github.com/melezhik/bird.git"
   },
   "tags" : [ ],
   "test-depends" : [ ],

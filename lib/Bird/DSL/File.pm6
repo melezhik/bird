@@ -38,3 +38,25 @@ our sub file-has-line (Str:D $path,*@lines) is export {
 
 }
 
+our sub file-has-permission ($path, %permissions-hash) is export {
+
+  if %permissions-hash<read-all> {
+
+    update-cmd-file qq:to/HERE/;
+    {cmd-header("file $path is readable by all ?")}
+    stat -c%A $path
+    {cmd-footer()}
+    HERE
+
+    my $check = 'regexp: ^^^ \S "r" \S\S "r" \S\S "r" \S\S $$';
+
+    update-state-file qq:to/HERE/;
+    {state-header("file $path is readable by all ?")}
+      $check
+    {state-footer()}
+    HERE
+
+  }
+}
+
+
