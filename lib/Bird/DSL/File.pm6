@@ -48,7 +48,7 @@ our sub file-has-permission ($path, %permissions-hash) is export {
     {cmd-footer()}
     HERE
 
-    my $check = 'regexp: ^^^ \S "r" \S\S "r" \S\S "r" \S\S $$';
+    my $check = 'regexp: ^^^ \S "r"\S\S "r"\S\S "r"\S\S $$';
 
     update-state-file qq:to/HERE/;
     {state-header("file $path is readable by all ?")}
@@ -57,6 +57,43 @@ our sub file-has-permission ($path, %permissions-hash) is export {
     HERE
 
   }
+
+  if %permissions-hash<write-all> {
+
+    update-cmd-file qq:to/HERE/;
+    {cmd-header("file $path is writable by all ?")}
+    stat -c%A $path
+    {cmd-footer()}
+    HERE
+
+    my $check = 'regexp: ^^^ \S  \S"w"\S  \S"w"\S \S"w"\S $$';
+
+    update-state-file qq:to/HERE/;
+    {state-header("file $path is writable by all ?")}
+      $check
+    {state-footer()}
+    HERE
+
+  }
+
+  if %permissions-hash<execute-all> {
+
+    update-cmd-file qq:to/HERE/;
+    {cmd-header("file $path is executable by all ?")}
+    stat -c%A $path
+    {cmd-footer()}
+    HERE
+
+    my $check = 'regexp: ^^^ \S  \S\S"x"  \S\S"x" \S\S"x" $$';
+
+    update-state-file qq:to/HERE/;
+    {state-header("file $path is executable by all ?")}
+      $check
+    {state-footer()}
+    HERE
+
+  }
+
 }
 
 
