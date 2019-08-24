@@ -15,6 +15,7 @@ install:
   - git clone https://github.com/melezhik/sparrow-plugins && s6 --repo-init /tmp/repo
   - cd sparrow-plugins && git checkout master && git pull origin master
   - cd ssh-bulk-check && s6 --upload
+  - cd ../bash && s6 --upload
   - cd ../../
 
 script:
