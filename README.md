@@ -1,12 +1,40 @@
 # Bird
 
-Bird - Lightweight Alternative to Chef Inspec Written in Perl6.
+Bird - Alternative to Chef Inspec Written in Perl6.
+
+# WARING
+
+Bird is under active development now, but you can you give it a try and see how it differs from other tool.
+It's written in Perl6 and exposes pure Perl6 API.
+
+# Build Status
+
+[![Build Status](https://travis-ci.org/melezhik/bird.svg?branch=master)](https://travis-ci.org/melezhik/bird)
+
+# INSTALL
+
+    zef install Bird
+
+Bird uses Sparrow6 plugin `ssh-bulk-check` to do it's work, so one need
+to setup Sparrow6 repository, for example:
+
+    export SP6_REPO=http://repo.westus.cloudapp.azure.com/
+
+To run check remotely install ssh-pass:
+
+    sudo yum install sshpass
+
+# USAGE
+
+Create rules:
 
 **rules.pl6**:
 
     directory-exists "{%*ENV<HOME>}";
     file-exists "{%*ENV<HOME>}/.bashrc";
     directory-exists "{%*ENV<HOME>}/yyy";
+
+Run checks against hosts:
 
 `$ bird`:
 
@@ -32,38 +60,6 @@ Bird - Lightweight Alternative to Chef Inspec Written in Perl6.
     =================
     TASK CHECK FAIL
 
-# Build Status
-
-[![Build Status](https://travis-ci.org/melezhik/bird.svg?branch=master)](https://travis-ci.org/melezhik/bird)
-
-# Install
-
-    zef install Bird
-
-Bird uses Sparrow6 plugin `ssh-bulk-check` to do it's work, so one need
-to setup Sparrow6 repository, for example:
-
-    export SP6_REPO=http://repo.southcentralus.cloudapp.azure.com
-
-To run check remotely install ssh-pass:
-
-    sudo yum install sshpass
-
-# Usage
-
-Define rules:
-
-**rules.pl6**
-
-    file-exists "/home/bird/list.txt";
-    file-has-line "/home/bird/list.txt", "sparrow", "crow";
-    file-has-permission "/home/bird/list.txt", %( read-all => true, write-all => true );
-
-Run checks:
-
-    bird --host=192.168.0.1 --user=alex --password=PasSword!
-
-
 # Rules DSL
 
 Rules DSL is special language to validate states of Linux host.
@@ -83,7 +79,6 @@ There are two ways to set ssh hosts
 By using `--host`, `--user`, `--password` options:
 
     bird --host=192.168.0.1 --user=alex --password=PasSword
-
 
 ## Hosts.pl6
 
