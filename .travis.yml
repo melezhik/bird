@@ -16,7 +16,7 @@ install:
   - cd sparrow-plugins && git checkout master && git pull origin master
   - cd ssh-bulk-check && s6 --upload
   - cd ../bash && s6 --upload
-  - cd ../../
+  - cd ../../ && s6 --index-update
 
 script:
   - bird
