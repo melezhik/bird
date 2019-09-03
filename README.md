@@ -105,10 +105,36 @@ For example:
 
     %state<hosts><>.map: { %i<ip> }
 
+# cli options
+
+* `--rules`
+
+Path to rules file. If not set `rules.pl` in cwd is taken
+
+
+* `--password`
+
+Ssh password. Optional
+
+* `--user`
+
+Ssh user. Optional
+
+
+* `--host`
+
+Ssh host. Optional, see also `hosts.pl6`
+
+* `--verbose`
+
+Verbose mode. Not used now. Reserved for the future
+
+
 # Author
 
 Alexey Melezhik
 
 # See Also
 
-[Chef Inspec](https://www.inspec.io/)
+* [Chef Inspec](https://www.inspec.io/)
+* [Goss](https://github.com/aelsabbahy/goss)

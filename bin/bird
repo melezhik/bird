@@ -12,6 +12,7 @@ sub MAIN (
   Str  :$host,
   Str  :$user,
   Str  :$password,
+  Str  :$rules = "rules.pl6",
 
 )
 
@@ -31,7 +32,7 @@ sub MAIN (
   log("cmd file", cmd-file());
   log("check file", state-file());
 
-  EVALFILE "rules.pl6";
+  EVALFILE $rules;
 
   Sparrow6::Task::Repository::Api.new.index-update();
 
