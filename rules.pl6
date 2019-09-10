@@ -14,3 +14,6 @@ bash "chmod a+r /tmp/bird.tmp";
 bash "chmod a+w /tmp/bird.tmp";
 
 file-has-permission "/tmp/bird.tmp", %( write-all => True, read-all => True );
+
+command-has-stdout "echo hello; echo bird", "hello", "bird";
+

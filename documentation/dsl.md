@@ -10,7 +10,7 @@ File exists:
 
 ## file-has-line $path, @arrays-of-lines
 
-A text file contains a lines of text:
+A text file contains lines:
 
     file-has-line "{%*ENV<HOME>}/.bashrc", "EDITOR=nano", 'export SP6_REPO';
 
@@ -41,3 +41,8 @@ Packages are installed:
     package-installed "perl", "rakudo-pkg";
 
 
+## command-has-stdoud $command, @arrays-of-lines
+
+A commands has lines in stdoud:
+
+    command-has-stdoud "echo hello; echo bird", "hello", "bird";
