@@ -21,10 +21,15 @@ sub MAIN (
   my @hosts;
 
   if $host {
-    log("read host from command line", $host);
-    @hosts = $host;
+    if $host.IO ~~ :f {
+      log("read host from file", $host);
+      @hosts = EVALFILE "hosts.pl6";
+    } else {
+        log("read host from command line", $host);
+        @hosts = $host;
+    }
   } elsif "hosts.pl6".IO ~~ :f {
-    log("read hosts file from", "hosts.pl6");
+    log("read hosts from file", "hosts.pl6");
     @hosts = EVALFILE "hosts.pl6";
   } else {
       die "need host(s)"
