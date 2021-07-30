@@ -9,15 +9,11 @@ use Bird;
 our sub directory-exists ($path) is export {
 
     update-cmd-file qq:to/HERE/;
-    {cmd-header("directory $path exists ?")}
-    test -d $path && echo directory exists
-    {cmd-footer()}
+    if test -d $path; then echo "directory $path exists"; else echo "directory $path does not exist"; fi
     HERE
 
     update-state-file qq:to/HERE/;
-    {state-header("directory $path exists ?")}
-      regexp: ^^^ 'directory exists'
-    {state-footer()}
+    directory $path exists
     HERE
 
 }
