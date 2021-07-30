@@ -38,7 +38,9 @@ Directory exists:
 
 Packages are installed:
 
-    package-installed "perl", "rakudo-pkg";
+    package-installed "python36"; # as a string
+
+    package-installed(["perl", "rakudo-pkg"]); # as a list
 
 
 ## command-has-stdoud $command, @arrays-of-lines

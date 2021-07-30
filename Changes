@@ -1,0 +1,10 @@
+Revision history for Bird
+
+{{$NEXT}}
+
+    Less verbose checks
+    Add `package-installed` check
+
+0.1.0  2019-10-11T17:24:57Z
+
+    First version
