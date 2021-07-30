@@ -34,7 +34,7 @@ Directory exists:
 
     directory-exists "{%*ENV<HOME>}/.sparrow6";
 
-## package-installed @package-names
+## package-installed $package-name | @package-names
 
 Packages are installed:
 
@@ -42,6 +42,13 @@ Packages are installed:
 
     package-installed(["perl", "rakudo-pkg"]); # as a list
 
+## pip3-package-installed $package-name | @package-names
+
+Packages are installed:
+
+    pip3-package-installed "python-openstackclient"; # as a string
+
+    pip3-package-installed(["python-openstackclient","openstacksdk"]); # as a list
 
 ## command-has-stdoud $command, @arrays-of-lines
 

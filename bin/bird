@@ -6,6 +6,7 @@ use Sparrow6::Task::Repository;
 use Bird::DSL::File;
 use Bird::DSL::Directory;
 use Bird::DSL::Package;
+use Bird::DSL::Pip;
 use Bird::DSL::Command;
 
 sub MAIN (

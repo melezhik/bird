@@ -4,6 +4,7 @@ Revision history for Bird
 
     Less verbose checks
     Add `package-installed` check
+    Add `pip3-package-installed` check
 
 0.1.0  2019-10-11T17:24:57Z
 

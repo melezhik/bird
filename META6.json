@@ -15,6 +15,7 @@
     "Bird::DSL::File" : "lib/Bird/DSL/File.pm6",
     "Bird::DSL::Directory" : "lib/Bird/DSL/Directory.pm6",
     "Bird::DSL::Package" : "lib/Bird/DSL/Package.pm6",
+    "Bird::DSL::Pip" : "lib/Bird/DSL/Pip.pm6",
     "Bird::DSL::Command" : "lib/Bird/DSL/Command.pm6"
   },
   "resources" : [
