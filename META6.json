@@ -6,7 +6,7 @@
   "depends" : [
     "Sparrow6"
   ],
-  "description" : "Bird - Alternative to Chef Inspec Written in Perl6",
+  "description" : "Bird - Alternative to Chef Inspec Written in Raku",
   "license" : "Artistic-2.0",
   "name" : "bird",
   "perl" : "6.*",

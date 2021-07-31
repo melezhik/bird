@@ -1,11 +1,12 @@
 # Bird
 
-Bird - Alternative to Chef Inspec Written in Perl6.
+Bird - Alternative to Chef Inspec Written in Raku.
 
 # WARING
 
 Bird is under active development now, but you can you give it a try and see how it differs from other tool.
-It's written in Perl6 and exposes pure Perl6 API.
+
+It's written in Raku and exposes pure Raku API.
 
 # Build Status
 
@@ -64,7 +65,7 @@ Run checks against hosts:
 
 Rules DSL is special language to validate states of Linux host.
 
-This is just plain Perl6 functions:
+This is just plain Raku functions:
 
     file-exists "{%*ENV<HOME>}/.bashrc";
 
@@ -83,7 +84,7 @@ By using `--host`, `--user`, `--password` options:
 ## Hosts.pl6
 
 To define dynamic hosts configuration, use `hosts.pl6`, this should
-be Perl6 script that returns `@Array` of hosts:
+be Raku script that returns `@Array` of hosts:
 
     [
       '192.168.0.1',
