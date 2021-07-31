@@ -4,7 +4,7 @@ Bird - Alternative to Chef Inspec Written in Raku.
 
 # WARING
 
-Bird is under active development now, but you can you give it a try and see how it differs from other tool.
+Bird is under active development now, things might change.
 
 It's written in Raku and exposes pure Raku API.
 
@@ -16,10 +16,10 @@ It's written in Raku and exposes pure Raku API.
 
     zef install Bird
 
-Bird uses Sparrow6 plugin `ssh-bulk-check` to do it's work, so one need
-to setup Sparrow6 repository, for example:
+Bird uses Sparrow6 plugin `ssh-bulk-check` to do it's work, so one needs
+to setup Sparrow6 repository:
 
-    export SP6_REPO=http://repo.westus.cloudapp.azure.com/
+    export SP6_REPO=http://sparrowhub.io/repo
 
 To run check remotely install ssh-pass:
 
