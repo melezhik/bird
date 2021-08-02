@@ -2,7 +2,7 @@
 
 use v6;
 
-unit module Bird:ver<0.1.0>;
+unit module Bird:ver<0.1.1>;
 
 my $base-dir = "{%*ENV<HOME>}/.bird/{$*PID}{22.rand.Int.Str}";
 
