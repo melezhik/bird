@@ -39,27 +39,7 @@ Run checks against hosts:
 
 `$ bird`:
 
-    bird:: [read hosts file from] [hosts.pl6]
-    bird:: [cmd file] [/home/melezhik/.bird/71214/cmd.sh]
-    bird:: [check file] [/home/melezhik/.bird/71214/state.check]
-    00:48:35 07/20/2019 [check my hosts] check host [127.0.0.1] ...
-    00:48:35 07/20/2019 [check my hosts] <<< dir /home/melezhik exists ?
-    00:48:35 07/20/2019 [check my hosts] dir exists
-    00:48:35 07/20/2019 [check my hosts] >>>
-    00:48:35 07/20/2019 [check my hosts] <<< file /home/melezhik/.bashrc exists ?
-    00:48:35 07/20/2019 [check my hosts] file exists
-    00:48:35 07/20/2019 [check my hosts] >>>
-    00:48:35 07/20/2019 [check my hosts] <<< dir /home/melezhik/yyy exists ?
-    00:48:35 07/20/2019 [check my hosts] >>>
-    00:48:35 07/20/2019 [check my hosts] end check host [127.0.0.1]
-    [task check] [dir /home/melezhik exists ?]
-    [task check] stdout match (r) <^^^ 'dir exists'> True
-    [task check] [file /home/melezhik/.bashrc exists ?]
-    [task check] stdout match (r) <^^^ 'file exists'> True
-    [task check] [dir /home/melezhik/yyy exists ?]
-    [task check] stdout match (r) <^^^ 'dir exists'> False
-    =================
-    TASK CHECK FAIL
+![bird report](https://raw.githubusercontent.com/melezhik/bird/master/bird-report.png)
 
 # Rules DSL
 
