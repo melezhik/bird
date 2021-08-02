@@ -9,18 +9,15 @@ use Bird;
 our sub file-exists ($path) is export {
 
     update-cmd-file qq:to/HERE/;
-    {cmd-header("file $path exists ?")}
-    test -f $path && echo file exists
-    {cmd-footer()}
+    if test -f $path; then echo "file $path exists"; else echo "file $path does not exist"; fi
     HERE
 
     update-state-file qq:to/HERE/;
-    {state-header("file $path exists ?")}
-      regexp: ^^^ 'file exists'
-    {state-footer()}
+    file $path exists
     HERE
 
 }
+
 
 our sub file-has-line (Str:D $path,*@lines) is export {
 
