@@ -50,7 +50,7 @@ Create rules:
 
 Run checks against hosts:
 
-`bird`
+`bird --host=devstand01`
 
 ![bird report](https://raw.githubusercontent.com/melezhik/bird/master/bird-report.png)
 
