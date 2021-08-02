@@ -22,3 +22,15 @@ our sub command-has-stdout (Str:D $cmd,*@lines) is export {
 
 }
 
+our sub command-exit-code (Str:D $cmd,$code) is export {
+
+    update-cmd-file qq:to/HERE/;
+    $cmd 1>/dev/null 2>&1; echo "command [$cmd] exit code [\$?]"
+    HERE
+
+    update-state-file qq:to/HERE/;
+    command [$cmd] exit code [$code]
+    HERE
+
+}
+

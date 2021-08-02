@@ -52,6 +52,11 @@ Packages are installed:
 
 ## command-has-stdoud $command, @arrays-of-lines
 
-A commands has lines in stdoud:
+A command has lines in stdoud:
 
     command-has-stdoud "echo hello; echo bird", "hello", "bird";
+
+A command exists with an exit code:
+
+    # make sure we have a unzip
+    command-exit-code "unzip", 0;        
