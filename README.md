@@ -29,15 +29,28 @@ To run check remotely install ssh-pass:
 
 Create rules:
 
-**rules.pl6**:
+`cat rules.pl6`
 
-    directory-exists "{%*ENV<HOME>}";
-    file-exists "{%*ENV<HOME>}/.bashrc";
-    directory-exists "{%*ENV<HOME>}/yyy";
+    my $cls-id = "cls02";
+
+    directory-exists "~/projects/cluster-install/$cl-_id/backup";
+
+    directory-exists "~/projects/cluster-install/$cls-id/conf";
+
+    file-exists "~/projects/cluster-install/$cls-id/conf/.exists";
+
+    package-installed "python36";
+
+    package-installed(["curl", "jq", "java-11-openjdk"]);
+
+    pip3-package-installed(["python-openstackclient"]);
+
+    command-has-stdout "keytool 2>&1 | head -n 4", "Key and Certificate Management Tool";
+
 
 Run checks against hosts:
 
-`$ bird`:
+`bird`
 
 ![bird report](https://raw.githubusercontent.com/melezhik/bird/master/bird-report.png)
 
