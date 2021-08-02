@@ -1,8 +1,8 @@
-# Bird
+# Bird 🐦
 
 Bird - Alternative to Chef Inspec Written in Raku.
 
-# WARING
+# WARNING ⚠️
 
 Bird is under active development now, things might change.
 
