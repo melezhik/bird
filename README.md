@@ -62,7 +62,7 @@ This is just plain Raku functions:
 
     file-exists "{%*ENV<HOME>}/.bashrc";
 
-The full list of DSL functions available [here](https://github.com/melezhik/bird/blob/master/documentation/dsl.md)
+The full list of DSL functions available [here](https://github.com/melezhik/bird/blob/master/documentation/dsl.md).
 
 # Ssh hosts
 
