@@ -66,7 +66,7 @@ The full list of DSL functions available [here](https://github.com/melezhik/bird
 
 # Ssh hosts
 
-There are two ways to set ssh hosts
+There are two ways to set ssh hosts:
 
 ## Command line
 

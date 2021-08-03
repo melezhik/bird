@@ -42,6 +42,8 @@ Packages are installed:
 
     package-installed(["perl", "rakudo-pkg"]); # as a list
 
+## package-not-installed $package-name | @package-names
+
 Package is not installed:
 
     package-not-installed "ruby";
@@ -59,6 +61,8 @@ Packages are installed:
 A command has lines in stdoud:
 
     command-has-stdoud "echo hello; echo bird", "hello", "bird";
+
+## command-exit-code $command, $code
 
 A command exists with an exit code:
 
