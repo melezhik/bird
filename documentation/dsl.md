@@ -66,5 +66,5 @@ A command has lines in stdoud:
 
 A command exists with an exit code:
 
-    # make sure we have a unzip
+    # make sure we have an unzip
     command-exit-code "unzip", 0;        

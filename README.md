@@ -114,7 +114,6 @@ Ssh password. Optional
 
 Ssh user. Optional
 
-
 * `--host`
 
 Ssh host. Optional, see also `hosts.pl6`
@@ -122,7 +121,6 @@ Ssh host. Optional, see also `hosts.pl6`
 * `--verbose`
 
 Verbose mode. Not used now. Reserved for the future
-
 
 # Author
 
