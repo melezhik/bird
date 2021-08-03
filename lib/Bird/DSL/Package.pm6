@@ -24,3 +24,18 @@ our sub package-installed ($package) is export {
 
 }
 
+our sub package-not-installed (Str:D $package) is export {
+
+    update-cmd-file qq:to/HERE/;
+    if yum list installed $package 1>/dev/null 2>&1; then 
+      echo "package [$package] is installed"
+    else
+      echo "package [$package] is not installed"
+    fi
+    HERE
+
+    update-state-file qq:to/HERE/;
+    package [$package] is not installed
+    HERE
+
+}

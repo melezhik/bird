@@ -42,6 +42,10 @@ Packages are installed:
 
     package-installed(["perl", "rakudo-pkg"]); # as a list
 
+Package is not installed:
+
+    package-not-installed "ruby";
+
 ## pip3-package-installed $package-name | @package-names
 
 Packages are installed:

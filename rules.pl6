@@ -18,3 +18,5 @@ file-has-permission "/tmp/bird.tmp", %( write-all => True, read-all => True );
 command-has-stdout "echo hello; echo bird", "hello", "bird";
 
 command-exit-code "raku --version", 0;
+
+package-not-installed "mc";
