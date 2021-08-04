@@ -2,6 +2,10 @@ Revision history for Bird
 
 {{$NEXT}}
 
+0.1.4  2021-08-04T03:29:00Z
+
+    Just refactoring
+
 0.1.3  2021-08-04T02:44:00Z
 
     Add debian/ubuntu support for `package-*` DSL
