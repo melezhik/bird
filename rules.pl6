@@ -1,31 +1,31 @@
-#directory-exists "{%*ENV<HOME>}";
-#file-exists "{%*ENV<HOME>}/.bashrc";
-#directory-exists "{%*ENV<HOME>}/yyy";
+directory-exists "{%*ENV<HOME>}";
+file-exists "{%*ENV<HOME>}/.bashrc";
+directory-exists "{%*ENV<HOME>}/yyy";
 
-#bash "echo hello > /tmp/bird.tmp";
-#bash "echo bird >> /tmp/bird.tmp";
+bash "echo hello > /tmp/bird.tmp";
+bash "echo bird >> /tmp/bird.tmp";
 
-#file-has-line "/tmp/bird.tmp", "hello", "bird";
+file-has-line "/tmp/bird.tmp", "hello", "bird";
 
-#file-has-permission "documentation/dsl.md", %( read-all => True );
-#file-has-permission "bin/bird", %( execute-all => True, read-all => True );
+file-has-permission "documentation/dsl.md", %( read-all => True );
+file-has-permission "bin/bird", %( execute-all => True, read-all => True );
 
-#bash "chmod a+r /tmp/bird.tmp";
-#bash "chmod a+w /tmp/bird.tmp";
+bash "chmod a+r /tmp/bird.tmp";
 
-#file-has-permission "/tmp/bird.tmp", %( write-all => True, read-all => True );
+bash "chmod a+w /tmp/bird.tmp";
 
-#command-has-stdout "echo hello; echo bird", "hello", "bird";
+file-has-permission "/tmp/bird.tmp", %( write-all => True, read-all => True );
 
-#command-exit-code "raku --version", 0;
+command-has-stdout "echo hello; echo bird", "hello", "bird";
 
-#package-not-installed "mc";
+command-exit-code "raku --version", 0;
 
-#package-installed "nano";
+package-not-installed "mc";
 
-#pip3-package-installed "PyYAML";
+package-installed "nano";
 
-#file-has-permission "rules.pl6", %( read-all => True )
+pip3-package-installed "PyYAML";
 
+file-has-permission "rules.pl6", %( read-all => True );
 
 package-installed "nano";

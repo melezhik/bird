@@ -40,6 +40,9 @@ sub MAIN (
   log("cmd file", cmd-file());
   log("check file", state-file());
 
+  # inject common code into cmd file
+  cmd-file-init();
+
   EVALFILE $rules;
 
   Sparrow6::Task::Repository::Api.new.index-update();

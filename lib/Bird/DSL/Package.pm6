@@ -10,8 +10,6 @@ our sub package-installed ($package) is export {
 
     my @packages = $package.isa(List) ?? $package<> !! $package;
 
-    update-cmd-file %?RESOURCES<utils.sh>.Str.IO.slurp;
-
     for @packages -> $p {
 
       update-cmd-file qq:to/HERE/;

@@ -15,6 +15,11 @@ our sub state-file () is export { "$base-dir/state.check" }
 unlink cmd-file() if cmd-file.IO ~~ :f;
 unlink state-file() if state-file.IO ~~ :f;
 
+our sub cmd-file-init () is export {
+  say "bird:: [init cmd file]";
+  update-cmd-file %?RESOURCES<utils.sh>.Str.IO.slurp;
+}
+
 our sub log ($header,$footer) is export {
   say "bird:: [$header] [$footer]"
 }
