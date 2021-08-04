@@ -20,6 +20,7 @@
     "Bird::DSL::Command" : "lib/Bird/DSL/Command.pm6"
   },
   "resources" : [
+    "utils.sh"
   ],
   "source-type" : "git",
   "source-url" : "https://github.com/melezhik/bird",

@@ -2,6 +2,8 @@ Revision history for Bird
 
 {{$NEXT}}
 
+    Add debian/ubuntu support for `package-*` DSL
+
 0.1.2  2021-08-04T12:36:00Z
 
     Add `command-exit-code` check
