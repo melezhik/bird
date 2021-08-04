@@ -2,6 +2,8 @@ Revision history for Bird
 
 {{$NEXT}}
 
+0.1.2  2021-08-04T12:36:00Z
+
     Add `command-exit-code` check
 
 0.1.1  2021-08-02T01:50:00Z
