@@ -46,21 +46,16 @@ if $config<volume-mounts> {
 
 }
 
-=begin comment
 
-if $c<command> {
+if $config<command> {
 
-  say "[command_start]";
+  my $cmd = $c<command> ?? ($c<command>).join("\n") !! "";
 
-  #say $c<command>.perl;
-
-  for $c<command><> -> $i {
-    say $i;
-  }
-
-  say "[command_end]";
-
+  say "assert: ", $cmd eq $config<command> ?? 1 !! 0, " command [{$cmd.subst}] exists";
+ 
 }
+
+=begin comment
 
 if $c<command> {
 
