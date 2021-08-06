@@ -35,6 +35,24 @@ our sub file-has-line (Str:D $path,*@lines) is export {
 
 }
 
+our sub file-data-not-empty (Str:D $path,*@pattern) is export {
+
+    update-cmd-file cmd-header("file [$path] none empty data [{@pattern.perl}]");
+    my @c;
+    for @pattern -> $pattern {
+        @c.push: "s/$pattern\\s*\\S+/$pattern censored/g";
+    }
+    update-cmd-file "perl -n -e '{@c.join: '; '}; print' $path";
+    update-cmd-file cmd-footer();
+
+    update-state-file state-header("file [$path] none empty data [{@pattern.perl}]");
+    for @pattern -> $pattern {
+      update-state-file "regexp: \"$pattern\" \\s* censored";
+    }
+    update-state-file state-footer();
+
+}
+
 our sub file-has-permission ($path, %permissions-hash) is export {
 
   if %permissions-hash<read-all> {

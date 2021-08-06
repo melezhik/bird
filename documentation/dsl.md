@@ -14,6 +14,11 @@ A text file contains lines:
 
     file-has-line "{%*ENV<HOME>}/.bashrc", "EDITOR=nano", 'export SP6_REPO';
 
+## A text file contains none empty data:
+  
+    # both `username:`, `password:` chunks should be none empty
+    file-data-not-empty "~/creds.yaml", "password:", "username:";
+
 ## file-has-permission $file-path, %permissions-hash
 
 File has permissions.
@@ -56,7 +61,7 @@ Packages are installed:
 
     pip3-package-installed(["python-openstackclient","openstacksdk"]); # as a list
 
-## command-has-stdoud $command, @arrays-of-lines
+## command-has-stdout $command, @arrays-of-lines
 
 A command has lines in stdoud:
 

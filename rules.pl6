@@ -1,6 +1,8 @@
 directory-exists "{%*ENV<HOME>}";
+
 file-exists "{%*ENV<HOME>}/.bashrc";
-directory-exists "{%*ENV<HOME>}/yyy";
+
+#directory-exists "{%*ENV<HOME>}/yyy";
 
 bash "echo hello > /tmp/bird.tmp";
 bash "echo bird >> /tmp/bird.tmp";
@@ -20,7 +22,7 @@ command-has-stdout "echo hello; echo bird", "hello", "bird";
 
 command-exit-code "raku --version", 0;
 
-package-not-installed "mc";
+#package-not-installed "mc";
 
 package-installed "nano";
 
@@ -29,3 +31,8 @@ pip3-package-installed "PyYAML";
 file-has-permission "rules.pl6", %( read-all => True );
 
 package-installed "nano";
+
+bash "echo username=admin > /tmp/creds.txt; echo password=123 >> /tmp/creds.txt;";
+
+file-data-not-empty "/tmp/creds.txt",
+  "username=", "password=";

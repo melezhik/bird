@@ -2,6 +2,9 @@ Revision history for Bird
 
 {{$NEXT}}
 
+    start implimenting `k8s` checks
+    file has none empty data check
+
 0.1.4  2021-08-04T03:29:00Z
 
     Just refactoring
