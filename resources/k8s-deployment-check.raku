@@ -21,26 +21,32 @@ if $config<env> {
 
 }
 
-=begin comment
+if $config<volume-mounts> {
 
-if $c<volumeMounts> {
+  my @v = ($c<volumeMounts> ?? $c<volumeMounts><> !! []).map({
 
-  say "[volume_mounts_start]";
-
-  #say $c<volumeMounts>.perl;
-
-  for $c<volumeMounts><> -> $i {
-    #say $i<subPath>.exists ??  "[{$i<name>} {$i<mountPath>}\@$i<subPath>]" !! "[{$i<name>} {$i<mountPath>}]";
-    if $i<subPath> {
-      say "[{$i<name>} {$i<mountPath>}\@$i<subPath>]"
+    if .<subPath> {
+      "{.<name>} {.<mountPath>}\@{.<subPath>}"
     } else {
-      say "[{$i<name>} {$i<mountPath>}]"
+      "{.<name>} {.<mountPath>}"
+    }
+    
+  });
+
+  if $config<volume-mounts>.isa(Array) {
+    for $config<volume-mounts><> -> $i {
+      say "assert: ", ( $i ~~  any @v ) ?? 1 !! 0, " mount [$i] exists";
+    }
+  } else {
+    my %h = $config<volume-mounts>;
+    for %h -> $i {
+      say "assert: ", ( "{$i.key} {$i.value}" ~~  any @v ) ?? 1 !! 0, " mount [$i] exists";
     }
   }
 
-  say "[volume_mounts_end]";
-
 }
+
+=begin comment
 
 if $c<command> {
 
