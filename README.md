@@ -31,28 +31,134 @@ Create rules:
 
 `cat rules.pl6`
 
-    my $cls-id = "cls02";
+    directory-exists "{%*ENV<HOME>}";
 
-    directory-exists "~/projects/cluster-install/$cl-_id/backup";
+    file-exists "{%*ENV<HOME>}/.bashrc";
 
-    directory-exists "~/projects/cluster-install/$cls-id/conf";
+    bash "echo hello > /tmp/bird.tmp";
 
-    file-exists "~/projects/cluster-install/$cls-id/conf/.exists";
+    bash "echo bird >> /tmp/bird.tmp";
 
-    package-installed "python36";
+    file-has-line "/tmp/bird.tmp", "hello", "bird";
 
-    package-installed(["curl", "jq", "java-11-openjdk"]);
+    file-has-permission "documentation/dsl.md", %( read-all => True );
+    file-has-permission "bin/bird", %( execute-all => True, read-all => True );
 
-    pip3-package-installed(["python-openstackclient"]);
+    bash "chmod a+r /tmp/bird.tmp";
 
-    command-has-stdout "keytool 2>&1 | head -n 4", "Key and Certificate Management Tool";
+    bash "chmod a+w /tmp/bird.tmp";
 
+    file-has-permission "/tmp/bird.tmp", %( write-all => True, read-all => True );
+
+    command-has-stdout "echo hello; echo bird", "hello", "bird";
+
+    command-exit-code "raku --version", 0;
+
+    package-installed "nano";
+
+    pip3-package-installed "PyYAML";
+
+    file-has-permission "rules.pl6", %( read-all => True );
+
+    package-installed "nano";
+
+    bash "echo username=admin > /tmp/creds.txt; echo password=123 >> /tmp/creds.txt;";
+
+    file-data-not-empty "/tmp/creds.txt",
+      "username=", "password=";
 
 Run checks against hosts:
 
-`bird --host=devstand01`
+`bird`
 
-![bird report](https://raw.githubusercontent.com/melezhik/bird/master/bird-report.png)
+```
+bird:: [read hosts from file] [hosts.pl6]
+bird:: [cmd file] [/root/.bird/2587814/cmd.sh]
+bird:: [check file] [/root/.bird/2587814/state.check]
+bird:: [init cmd file]
+[bash: echo hello > /tmp/bird.tmp] :: <empty stdout>
+[bash: echo bird >> /tmp/bird.tmp] :: <empty stdout>
+[bash: chmod a+r /tmp/bird.tmp] :: <empty stdout>
+[bash: chmod a+w /tmp/bird.tmp] :: <empty stdout>
+[bash: echo username=admin > /tmp/creds.txt; echo passwor ...] :: <empty stdout>
+[repository] :: index updated from file:///root/repo/api/v1/index
+[check my hosts] :: check host [localhost] ...
+[check my hosts] :: directory /root exists
+[check my hosts] :: file /root/.bashrc exists
+[check my hosts] :: <<< file /tmp/bird.tmp has line ["hello", "bird"] ?
+[check my hosts] :: hello
+[check my hosts] :: bird
+[check my hosts] :: >>>
+[check my hosts] :: <<< file documentation/dsl.md is readable by all ?
+[check my hosts] :: -rw-r--r--
+[check my hosts] :: >>>
+[check my hosts] :: <<< file bin/bird is readable by all ?
+[check my hosts] :: -rwxr-xr-x
+[check my hosts] :: >>>
+[check my hosts] :: <<< file bin/bird is executable by all ?
+[check my hosts] :: -rwxr-xr-x
+[check my hosts] :: >>>
+[check my hosts] :: <<< file /tmp/bird.tmp is readable by all ?
+[check my hosts] :: -rw-rw-rw-
+[check my hosts] :: >>>
+[check my hosts] :: <<< file /tmp/bird.tmp is writable by all ?
+[check my hosts] :: -rw-rw-rw-
+[check my hosts] :: >>>
+[check my hosts] :: <<< command [echo hello; echo bird] has stdout ["hello", "bird"] ?
+[check my hosts] :: hello
+[check my hosts] :: bird
+[check my hosts] :: >>>
+[check my hosts] :: command [raku --version] exit code [0]
+[check my hosts] :: Installed Packages
+[check my hosts] :: nano.x86_64                         2.9.8-1.el8                          @baseos
+[check my hosts] :: package nano is installed
+[check my hosts] :: <<< pip3 package PyYAML is installed?
+[check my hosts] :: stderr: WARNING: You are using pip version 21.1.2; however, version 21.2.3 is available.
+You should consider upgrading via the '/usr/bi
+[check my hosts] :: stderr: n/python3.6 -m pip install --upgrade pip' command.
+[check my hosts] :: PyYAML              3.12
+[check my hosts] :: >>>
+[check my hosts] :: <<< file rules.pl6 is readable by all ?
+[check my hosts] :: -rw-r--r--
+[check my hosts] :: >>>
+[check my hosts] :: Installed Packages
+[check my hosts] :: nano.x86_64                         2.9.8-1.el8                          @baseos
+[check my hosts] :: package nano is installed
+[check my hosts] :: <<< file [/tmp/creds.txt] none empty data [["username=", "password="]]
+[check my hosts] :: username= censored
+[check my hosts] :: password= censored
+[check my hosts] :: >>>
+[check my hosts] :: end check host [localhost]
+[check my hosts] :: ==========================================================
+[task check] stdout match <directory /root exists> True
+[task check] stdout match <file /root/.bashrc exists> True
+[task check] [file /tmp/bird.tmp has line ["hello", "bird"] ?]
+[task check] stdout match (r) <hello> True
+[task check] stdout match (r) <bird> True
+[task check] [file documentation/dsl.md is readable by all ?]
+[task check] stdout match (r) <^^^ \S "r"\S\S "r"\S\S "r"\S\S $$> True
+[task check] [file bin/bird is readable by all ?]
+[task check] stdout match (r) <^^^ \S "r"\S\S "r"\S\S "r"\S\S $$> True
+[task check] [file bin/bird is executable by all ?]
+[task check] stdout match (r) <^^^ \S  \S\S"x"  \S\S"x" \S\S"x" $$> True
+[task check] [file /tmp/bird.tmp is readable by all ?]
+[task check] stdout match (r) <^^^ \S "r"\S\S "r"\S\S "r"\S\S $$> True
+[task check] [file /tmp/bird.tmp is writable by all ?]
+[task check] stdout match (r) <^^^ \S  \S"w"\S  \S"w"\S \S"w"\S $$> True
+[task check] [command [echo hello; echo bird] has stdout ["hello", "bird"] ?]
+[task check] stdout match (r) <hello> True
+[task check] stdout match (r) <bird> True
+[task check] stdout match <command [raku --version] exit code [0]> True
+[task check] stdout match <package nano is installed> True
+[task check] [pip3 package PyYAML is installed?]
+[task check] stdout match (r) <^^ 'PyYAML' \s+> True
+[task check] [file rules.pl6 is readable by all ?]
+[task check] stdout match (r) <^^^ \S "r"\S\S "r"\S\S "r"\S\S $$> True
+[task check] stdout match <package nano is installed> True
+[task check] [file [/tmp/creds.txt] none empty data [["username=", "password="]]]
+[task check] stdout match (r) <"username=" \s* censored> True
+[task check] stdout match (r) <"password=" \s* censored> True
+```
 
 # Rules DSL
 
