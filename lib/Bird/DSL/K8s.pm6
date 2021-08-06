@@ -6,16 +6,18 @@ unit module Bird::DSL::K8s;
 
 use Bird;
 
-our sub k8s-deployment-has ($dpl,$namespace,$cnt,*%config) is export {
+our sub k8s-deployment-has ($dpl,$namespace,$cnt,%config = %()) is export {
 
       update-cmd-file qq:to/HERE/;
-      if ! test -f \$cache_root_dir/k8s_dpl_{$dpl}_{$namespace}.json; then
-        kubectl get deployment $dpl -n $namespace -o json > \$cache_root_dir/k8s_dpl_{$dpl}_{$namespace}.json
-      fi
+      {cmd-header("kubectl get deployment $dpl -n $namespace")}
+      kubectl get deployment $dpl -n $namespace -o json
+      {cmd-footer()}
       HERE
 
       update-state-file qq:to/HERE/;
-      note: k8s dpl {$dpl}\@{$namespace} has
+      {state-header("kubectl get deployment $dpl -n $namespace")}
+      regexp: .*
+      {state-footer()}
       generator: <<RAKU
       !perl6
       my \$dpl = \"$dpl\";
