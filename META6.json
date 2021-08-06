@@ -17,10 +17,12 @@
     "Bird::DSL::Directory" : "lib/Bird/DSL/Directory.pm6",
     "Bird::DSL::Package" : "lib/Bird/DSL/Package.pm6",
     "Bird::DSL::Pip" : "lib/Bird/DSL/Pip.pm6",
-    "Bird::DSL::Command" : "lib/Bird/DSL/Command.pm6"
+    "Bird::DSL::Command" : "lib/Bird/DSL/Command.pm6",
+    "Bird::DSL::K8s" : "lib/Bird/DSL/K8s.pm6"
   },
   "resources" : [
-    "utils.sh"
+    "utils.sh",
+    "k8s-deployment-check.raku"
   ],
   "source-type" : "git",
   "source-url" : "https://github.com/melezhik/bird",

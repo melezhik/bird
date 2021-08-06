@@ -8,6 +8,7 @@ use Bird::DSL::Directory;
 use Bird::DSL::Package;
 use Bird::DSL::Pip;
 use Bird::DSL::Command;
+use Bird::DSL::K8s;
 
 sub MAIN (
 
