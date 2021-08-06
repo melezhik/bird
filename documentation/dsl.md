@@ -14,7 +14,9 @@ A text file contains lines:
 
     file-has-line "{%*ENV<HOME>}/.bashrc", "EDITOR=nano", 'export SP6_REPO';
 
-## A text file contains none empty data:
+##  file-data-not-empty $path, @patterns
+
+A text file contains none empty data:
   
     # both `username:`, `password:` chunks should be none empty
     file-data-not-empty "~/creds.yaml", "password:", "username:";
