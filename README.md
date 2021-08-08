@@ -2,11 +2,11 @@
 
 Bird - Alternative to Chef Inspec Written in Raku.
 
+It's written in Raku and exposes pure Raku API.
+
 # WARNING ⚠️
 
 Bird is under active development now, things might change.
-
-It's written in Raku and exposes pure Raku API.
 
 # Build Status
 
