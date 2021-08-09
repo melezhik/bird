@@ -40,16 +40,24 @@ our sub file-data-not-empty (Str:D $path,*@pattern) is export {
     update-cmd-file cmd-header("file [$path] none empty data [{@pattern.perl}]");
     my @c;
     for @pattern -> $pattern {
-        @c.push: "s/$pattern\\s*\\S+/$pattern censored/g";
+        @c.push: "s/($pattern)\\S+/\$1.\"[censored]\"/ge";
+        @c.push: "s/(.*$pattern)/\">>>\".\$1/ge";
     }
     update-cmd-file "perl -n -e '{@c.join: '; '}; print' $path";
     update-cmd-file cmd-footer();
 
     update-state-file state-header("file [$path] none empty data [{@pattern.perl}]");
-    for @pattern -> $pattern {
-      update-state-file "regexp: \"$pattern\" \\s* censored";
-    }
+    update-state-file "regexp: ^^ '>>>' ";
     update-state-file state-footer();
+
+    update-state-file q:to/HERE/;
+    generator: <<RAKU
+    !perl6
+    for matched()<> -> $ml {
+      say "assert: ", $ml ~~ /'[censored]'/ ?? 1 !! 0, " $ml is not empty";
+    }
+    RAKU
+    HERE
 
 }
 
