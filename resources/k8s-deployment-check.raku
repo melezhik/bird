@@ -53,6 +53,17 @@ if $config<command> {
  
 }
 
+if $config<args> {
+
+  my $args = $c<args> ?? ($c<args>).join("\n") !! "";
+
+  my $args-safe = $args.subst("\n","\\n",:g);
+  my $config-args-safe = $config<args>.join("\n").subst("\n","\\n",:g);
+
+  say "assert: ", $args-safe eq $config-args-safe ?? 1 !! 0, " command [$config-args-safe] == [$args-safe]";
+ 
+}
+
 =begin comment
 
 if $c<command> {
