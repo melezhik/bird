@@ -7,7 +7,7 @@
   "depends" : [
     "Sparrow6"
   ],
-  "description" : "Bird - Alternative to Chef Inspec Written in Raku",
+  "description" : "Bird - Raku DSL for Linux Servers Verification",
   "license" : "Artistic-2.0",
   "name" : "bird",
   "perl" : "6.*",
