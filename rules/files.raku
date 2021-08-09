@@ -3,4 +3,6 @@ bash "echo password=123 >> /tmp/creds.txt";
 bash "echo password: >> /tmp/creds.txt";
 
 file-data-not-empty "/tmp/creds.txt",
-  "username=", "password=", "password:";
+  "username=\\s*", "password=", "password:";
+
+file-has-line "/tmp/creds.txt", "username", "password", "login";

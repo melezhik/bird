@@ -23,14 +23,16 @@ our sub file-exists ($path) is export {
 
 our sub file-has-line (Str:D $path,*@lines) is export {
 
+    my $cmd-id = %cache<file-has-lines>++;
+    my $header = "file $path has lines. $cmd-id";
     update-cmd-file qq:to/HERE/;
-    {cmd-header("file $path has line {@lines.perl} ?")}
+    {cmd-header("$header | lines: {@lines.perl}")}
     cat $path
     {cmd-footer()}
     HERE
 
     update-state-file qq:to/HERE/;
-    {state-header("file $path has line {@lines.perl} ?")}
+    {state-header($header)}
     {@lines.join("\n")}
     {state-footer()}
     HERE
@@ -40,18 +42,18 @@ our sub file-has-line (Str:D $path,*@lines) is export {
 our sub file-data-not-empty (Str:D $path,*@pattern) is export {
 
     my $cmd-id = %cache<file-data-not-empty>++;
-
-    update-cmd-file cmd-header("file [$path] none empty data. id={$cmd-id}");
+    my $header = "file [$path] has none empty data. $cmd-id";
+    update-cmd-file cmd-header("$header | data: {@pattern.perl}");
     my @c;
     for @pattern -> $pattern {
         @c.push: "s/($pattern)\\S+/\$1.\"[censored]\"/ge";
-        @c.push: "s/(.*$pattern)/\">>>\".\$1/ge";
+        @c.push: "s/(.*$pattern)/\"---> \".\$1/ge";
     }
     update-cmd-file "perl -n -e '{@c.join: '; '}; print' $path";
     update-cmd-file cmd-footer();
 
-    update-state-file state-header("file [$path] none empty data. id={$cmd-id}");
-    update-state-file "regexp: ^^ '>>>' ";
+    update-state-file state-header($header);
+    update-state-file "regexp: ^^ '---> ' ";
     update-state-file state-footer();
 
     update-state-file q:to/HERE/;
