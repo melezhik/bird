@@ -21,6 +21,13 @@ A text file contains none empty data:
     # both `username:`, `password:` chunks should be none empty
     file-data-not-empty "~/creds.yaml", "password:", "username:";
 
+Patterns should be Perl5 regexps. For example:
+
+    # password is set as password = value, or as password=value or
+    # password:value or as password : value or as password :value
+ 
+    'password:\s*', 'password\s*=\s*'
+
 ## file-has-permission $file-path, %permissions-hash
 
 File has permissions.
