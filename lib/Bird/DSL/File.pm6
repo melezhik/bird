@@ -6,14 +6,25 @@ unit module Bird::DSL::File;
 
 use Bird;
 
+my $id;
+
 our sub file-exists ($path) is export {
+  
+    my $head = "{'%.2d'.sprintf($id++)} file $path exists";
 
     update-cmd-file qq:to/HERE/;
-    if test -f $path; then echo "file $path exists"; else echo "file $path does not exist"; fi
+    {cmd-header($head)}
+    if test -f $path; then 
+      echo "file $path exists"; 
+    else echo "file $path does not exist"; 
+    fi
+    {cmd-footer()}
     HERE
 
     update-state-file qq:to/HERE/;
+    {state-header($head)}
     file $path exists
+    {state-footer()}
     HERE
 
 }
@@ -21,14 +32,17 @@ our sub file-exists ($path) is export {
 
 our sub file-has-line (Str:D $path,*@lines) is export {
 
+    my $head = "{'%.2d'.sprintf($id++)} file $path has lines";
+
     update-cmd-file qq:to/HERE/;
-    {cmd-header("file $path has line {@lines.perl} ?")}
+    {cmd-header($head)}
     cat $path
     {cmd-footer()}
     HERE
 
     update-state-file qq:to/HERE/;
-    {state-header("file $path has line {@lines.perl} ?")}
+    note: $head {@lines.perl}
+    {state-header($head)}
     {@lines.join("\n")}
     {state-footer()}
     HERE
@@ -37,7 +51,10 @@ our sub file-has-line (Str:D $path,*@lines) is export {
 
 our sub file-data-not-empty (Str:D $path,*@pattern) is export {
 
-    update-cmd-file cmd-header("file [$path] none empty data [{@pattern.perl}]");
+    my $head = "{'%.2d'.sprintf($id++)} file $path data not empty";
+
+    update-cmd-file cmd-header($head);
+
     my @c;
     for @pattern -> $pattern {
         @c.push: "s/($pattern)\\S+/\$1.\"[censored]\"/ge";
@@ -46,9 +63,12 @@ our sub file-data-not-empty (Str:D $path,*@pattern) is export {
     update-cmd-file "perl -n -e '{@c.join: '; '}; print' $path";
     update-cmd-file cmd-footer();
 
-    update-state-file state-header("file [$path] none empty data [{@pattern.perl}]");
-    update-state-file "regexp: ^^ '>>>' ";
-    update-state-file state-footer();
+    update-state-file qq:to/HERE/;
+    note: $head {@pattern.perl}
+    {state-header($head)}
+    regexp: ^^ '>>>' 
+    {state-footer()}
+    HERE
 
     update-state-file q:to/HERE/;
     generator: <<RAKU
@@ -65,8 +85,10 @@ our sub file-has-permission ($path, %permissions-hash) is export {
 
   if %permissions-hash<read-all> {
 
+    my $head = "{'%.2d'.sprintf($id++)} file $path is readable by all";
+
     update-cmd-file qq:to/HERE/;
-    {cmd-header("file $path is readable by all ?")}
+    {cmd-header($head)}
     stat -c%A $path
     {cmd-footer()}
     HERE
@@ -74,7 +96,8 @@ our sub file-has-permission ($path, %permissions-hash) is export {
     my $check = 'regexp: ^^^ \S "r"\S\S "r"\S\S "r"\S\S $$';
 
     update-state-file qq:to/HERE/;
-    {state-header("file $path is readable by all ?")}
+    note: $head
+    {state-header($head)}
       $check
     {state-footer()}
     HERE
@@ -83,8 +106,10 @@ our sub file-has-permission ($path, %permissions-hash) is export {
 
   if %permissions-hash<write-all> {
 
+    my $head = "{'%.2d'.sprintf($id++)} file $path is writtable by all";
+
     update-cmd-file qq:to/HERE/;
-    {cmd-header("file $path is writable by all ?")}
+    {cmd-header($head)}
     stat -c%A $path
     {cmd-footer()}
     HERE
@@ -92,7 +117,8 @@ our sub file-has-permission ($path, %permissions-hash) is export {
     my $check = 'regexp: ^^^ \S  \S"w"\S  \S"w"\S \S"w"\S $$';
 
     update-state-file qq:to/HERE/;
-    {state-header("file $path is writable by all ?")}
+    note: $head
+    {state-header($head)}
       $check
     {state-footer()}
     HERE
@@ -101,8 +127,10 @@ our sub file-has-permission ($path, %permissions-hash) is export {
 
   if %permissions-hash<execute-all> {
 
+    my $head = "{'%.2d'.sprintf($id++)} file $path is executable by all";
+
     update-cmd-file qq:to/HERE/;
-    {cmd-header("file $path is executable by all ?")}
+    {cmd-header($head)}
     stat -c%A $path
     {cmd-footer()}
     HERE
@@ -110,7 +138,8 @@ our sub file-has-permission ($path, %permissions-hash) is export {
     my $check = 'regexp: ^^^ \S  \S\S"x"  \S\S"x" \S\S"x" $$';
 
     update-state-file qq:to/HERE/;
-    {state-header("file $path is executable by all ?")}
+    note: $head
+    {state-header($head)}
       $check
     {state-footer()}
     HERE
