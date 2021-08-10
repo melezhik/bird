@@ -6,11 +6,9 @@ unit module Bird::DSL::Command;
 
 use Bird;
 
-my $id;
-
 our sub command-has-stdout (Str:D $cmd,*@lines) is export {
 
-    my $head = "{'%.2d'.sprintf($id++)} command [$cmd] has stdout";
+    my $head = mk-header "command [$cmd] has stdout";
 
     update-cmd-file qq:to/HERE/;
     {cmd-header($head)}
@@ -29,7 +27,7 @@ our sub command-has-stdout (Str:D $cmd,*@lines) is export {
 
 our sub command-exit-code (Str:D $cmd,$code) is export {
 
-    my $head = "{'%.2d'.sprintf($id++)} command [$cmd] has exit code";
+    my $head = mk-header "command [$cmd] has exit code";
 
     update-cmd-file qq:to/HERE/;
     {cmd-header($head)}

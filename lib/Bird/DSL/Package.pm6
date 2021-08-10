@@ -10,6 +10,14 @@ our sub package-installed ($package) is export {
 
     my @packages = $package.isa(List) ?? $package<> !! $package;
 
+    my $head = mk-header "package(s) installed";
+
+    update-cmd-file(cmd-header($head));
+    
+    update-state-file("note: $head {$package.perl}");
+
+    update-state-file(state-header($head));
+
     for @packages -> $p {
 
       update-cmd-file qq:to/HERE/;
@@ -20,34 +28,46 @@ our sub package-installed ($package) is export {
       fi
       HERE
 
-      update-state-file qq:to/HERE/;
-      package $p is installed
-      HERE
+      update-state-file("package $p is installed");
 
     }
 
-}
+    update-cmd-file(cmd-footer());
 
-our sub package-not-installed (Str:D $package) is export {
-
-    update-cmd-file qq:to/HERE/;
-    if test "\$os" = "debian" || test "\$os" = "ubuntu"; then
-      if dpkg -s $package 1>/dev/null 2>&1; then 
-        echo "package [$package] is installed"
-      else
-        echo "package [$package] is not installed"
-      fi
-    else
-      if yum list installed $package 1>/dev/null 2>&1; then 
-        echo "package [$package] is installed"
-      else
-        echo "package [$package] is not installed"
-      fi
-    fi
-    HERE
-
-    update-state-file qq:to/HERE/;
-    package [$package] is not installed
-    HERE
+    update-state-file(state-footer());
 
 }
+
+
+our sub package-not-installed ($package) is export {
+
+    my @packages = $package.isa(List) ?? $package<> !! $package;
+
+    my $head = mk-header "package(s) installed";
+
+    update-cmd-file(cmd-header($head));
+    
+    update-state-file("note: $head {$package.perl}");
+
+    update-state-file(state-header($head));
+
+    for @packages -> $p {
+
+      update-cmd-file qq:to/HERE/;
+      if test "\$os" = "debian" || test "\$os" = "ubuntu"; then
+        if dpkg -s $p 1>/dev/null 2>&1; then echo "package $p is installed"; else echo "package $p is not installed"; fi
+      else
+        if yum list installed $p; then echo "package $p is installed"; else echo "package $p is not installed"; fi
+      fi
+      HERE
+
+      update-state-file("package $p is not installed");
+
+    }
+
+    update-cmd-file(cmd-footer());
+
+    update-state-file(state-footer());
+
+}
+

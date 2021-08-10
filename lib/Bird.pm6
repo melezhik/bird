@@ -5,6 +5,7 @@ use v6;
 unit module Bird:ver<0.1.5>;
 
 my $base-dir = "{%*ENV<HOME>}/.bird/{$*PID}{22.rand.Int.Str}";
+my $test-id;
 
 mkdir "{%*ENV<HOME>}/.bird/";
 mkdir $base-dir;
@@ -22,6 +23,12 @@ our sub cmd-file-init () is export {
 
 our sub log ($header,$footer) is export {
   say "bird:: [$header] [$footer]"
+}
+
+our sub mk-header ($head) is export {
+
+  return "{'test_%.2d'.sprintf(++$test-id)} {$head}"
+
 }
 
 our sub update-cmd-file ($data) is export {

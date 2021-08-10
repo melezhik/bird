@@ -6,11 +6,9 @@ unit module Bird::DSL::File;
 
 use Bird;
 
-my $id;
-
 our sub file-exists ($path) is export {
   
-    my $head = "{'%.2d'.sprintf($id++)} file $path exists";
+    my $head = mk-header "file $path exists";
 
     update-cmd-file qq:to/HERE/;
     {cmd-header($head)}
@@ -32,7 +30,7 @@ our sub file-exists ($path) is export {
 
 our sub file-has-line (Str:D $path,*@lines) is export {
 
-    my $head = "{'%.2d'.sprintf($id++)} file $path has lines";
+    my $head = mk-header "file $path has lines";
 
     update-cmd-file qq:to/HERE/;
     {cmd-header($head)}
@@ -51,7 +49,7 @@ our sub file-has-line (Str:D $path,*@lines) is export {
 
 our sub file-data-not-empty (Str:D $path,*@pattern) is export {
 
-    my $head = "{'%.2d'.sprintf($id++)} file $path data not empty";
+    my $head = mk-header "file $path data not empty";
 
     update-cmd-file cmd-header($head);
 
@@ -85,7 +83,7 @@ our sub file-has-permission ($path, %permissions-hash) is export {
 
   if %permissions-hash<read-all> {
 
-    my $head = "{'%.2d'.sprintf($id++)} file $path is readable by all";
+    my $head = mk-header "file $path is readable by all";
 
     update-cmd-file qq:to/HERE/;
     {cmd-header($head)}
@@ -106,7 +104,7 @@ our sub file-has-permission ($path, %permissions-hash) is export {
 
   if %permissions-hash<write-all> {
 
-    my $head = "{'%.2d'.sprintf($id++)} file $path is writtable by all";
+    my $head = mk-header "file $path is writtable by all";
 
     update-cmd-file qq:to/HERE/;
     {cmd-header($head)}
@@ -127,7 +125,7 @@ our sub file-has-permission ($path, %permissions-hash) is export {
 
   if %permissions-hash<execute-all> {
 
-    my $head = "{'%.2d'.sprintf($id++)} file $path is executable by all";
+    my $head = mk-header "file $path is executable by all";
 
     update-cmd-file qq:to/HERE/;
     {cmd-header($head)}
