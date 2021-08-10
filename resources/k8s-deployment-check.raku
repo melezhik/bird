@@ -3,13 +3,8 @@ use MIME::Base64;
 
 my $c = from-json captures().map({"$_"}).join("");
 
-if config<container> {
-  say "note: verify deployment. name={$dpl},namespace={$namespace},container={$cnt}";
-  $c = $c<spec><template><spec><containers>.grep({ .<name> eq $cnt })[0];
-} else {
-  $c = $c<spec><template><spec><containers>[0];
-  say "note: verify deployment. name={$dpl},namespace={$namespace},container={$cnt}";
-}
+say "note: verify deployment. name={$dpl},namespace={$namespace},container={$cnt}";
+$c = $c<spec><template><spec><containers>.grep({ .<name> eq $cnt })[0];
 
 if $config<env> {
 
@@ -51,7 +46,21 @@ if $config<command> {
 
   my $cmd = $c<command> ?? ($c<command>).join("\n") !! "";
 
-  say "assert: ", $cmd eq $config<command> ?? 1 !! 0, " command [{$cmd.subst}] exists";
+  my $cmd-safe = $cmd.subst("\n","\\n",:g);
+  my $config-cmd-safe = $config<command>.join("\n").subst("\n","\\n",:g);
+
+  say "assert: ", $cmd-safe eq $config-cmd-safe ?? 1 !! 0, " command [$config-cmd-safe] == [$cmd-safe]";
+ 
+}
+
+if $config<args> {
+
+  my $args = $c<args> ?? ($c<args>).join("\n") !! "";
+
+  my $args-safe = $args.subst("\n","\\n",:g);
+  my $config-args-safe = $config<args>.join("\n").subst("\n","\\n",:g);
+
+  say "assert: ", $args-safe eq $config-args-safe ?? 1 !! 0, " command [$config-args-safe] == [$args-safe]";
  
 }
 

@@ -1,6 +1,6 @@
 # Bird 🐦
 
-Bird - Alternative to Chef Inspec Written in Raku.
+Bird - Raku DSL for Linux Servers Verification.
 
 It's written in Raku and exposes pure Raku API.
 
@@ -73,8 +73,8 @@ Run checks against hosts:
 
 ```
 bird:: [read hosts from file] [hosts.pl6]
-bird:: [cmd file] [/root/.bird/2587814/cmd.sh]
-bird:: [check file] [/root/.bird/2587814/state.check]
+bird:: [cmd file] [/root/.bird/915614/cmd.sh]
+bird:: [check file] [/root/.bird/915614/state.check]
 bird:: [init cmd file]
 [bash: echo hello > /tmp/bird.tmp] :: <empty stdout>
 [bash: echo bird >> /tmp/bird.tmp] :: <empty stdout>
@@ -85,7 +85,7 @@ bird:: [init cmd file]
 [check my hosts] :: check host [localhost] ...
 [check my hosts] :: directory /root exists
 [check my hosts] :: file /root/.bashrc exists
-[check my hosts] :: <<< file /tmp/bird.tmp has line ["hello", "bird"] ?
+[check my hosts] :: <<< file /tmp/bird.tmp has lines. 0 | lines: ["hello", "bird"]
 [check my hosts] :: hello
 [check my hosts] :: bird
 [check my hosts] :: >>>
@@ -124,15 +124,15 @@ You should consider upgrading via the '/usr/bi
 [check my hosts] :: Installed Packages
 [check my hosts] :: nano.x86_64                         2.9.8-1.el8                          @baseos
 [check my hosts] :: package nano is installed
-[check my hosts] :: <<< file [/tmp/creds.txt] none empty data [["username=", "password="]]
-[check my hosts] :: username= censored
-[check my hosts] :: password= censored
+[check my hosts] :: <<< file [/tmp/creds.txt] has none empty data. 0 | data: ["username=", "password="]
+[check my hosts] :: ---> username=[censored]
+[check my hosts] :: ---> password=[censored]
 [check my hosts] :: >>>
 [check my hosts] :: end check host [localhost]
 [check my hosts] :: ==========================================================
 [task check] stdout match <directory /root exists> True
 [task check] stdout match <file /root/.bashrc exists> True
-[task check] [file /tmp/bird.tmp has line ["hello", "bird"] ?]
+[task check] [file /tmp/bird.tmp has lines. 0]
 [task check] stdout match (r) <hello> True
 [task check] stdout match (r) <bird> True
 [task check] [file documentation/dsl.md is readable by all ?]
@@ -155,9 +155,10 @@ You should consider upgrading via the '/usr/bi
 [task check] [file rules.pl6 is readable by all ?]
 [task check] stdout match (r) <^^^ \S "r"\S\S "r"\S\S "r"\S\S $$> True
 [task check] stdout match <package nano is installed> True
-[task check] [file [/tmp/creds.txt] none empty data [["username=", "password="]]]
-[task check] stdout match (r) <"username=" \s* censored> True
-[task check] stdout match (r) <"password=" \s* censored> True
+[task check] [file [/tmp/creds.txt] has none empty data. 0]
+[task check] stdout match (r) <^^ '---> '> True
+[task check] <---> username=[censored] is not empty> True
+[task check] <---> password=[censored] is not empty> True
 ```
 
 # Rules DSL

@@ -2,7 +2,7 @@
 
 use v6;
 
-unit module Bird:ver<0.1.4>;
+unit module Bird:ver<0.1.5>;
 
 my $base-dir = "{%*ENV<HOME>}/.bird/{$*PID}{22.rand.Int.Str}";
 
@@ -59,7 +59,7 @@ our sub  cmd-footer () is export {
 our sub  state-header ($check) is export {
 
   return (
-    "between: \{ ^^^ '<<< $check' \$\$  \} \{ ^^^ '>>>' \$\$ \}",
+    "between: \{ ^^^ '<<< $check' \\s* \} \{ ^^^ '>>>' \\s* \}",
     " note: [$check]"
   ).join("\n");
 }
