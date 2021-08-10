@@ -48,12 +48,20 @@ sub MAIN (
 
   Sparrow6::Task::Repository::Api.new.index-update();
 
-  task-run "check my hosts", "ssh-bulk-check", %(
+  my %state = task-run "check my hosts", "ssh-bulk-check", %(
     cmd => cmd-file(),
     state => state-file(),
     hosts => @hosts,
     user => $user,
     password => $password,
   );
+
+  my $checks-failed = %state<__data__><task-check-err-cnt>;
+  
+  if $checks-failed {
+    say "====================================";
+    say "[$checks-failed] CHECKS FAILED";
+    exit(2);
+  }
 
 }
