@@ -59,7 +59,7 @@ our sub  cmd-footer () is export {
 our sub  state-header ($check) is export {
 
   return (
-    "between: \{ ^^^ '<<< $check' \\s* \} \{ ^^^ '>>>' \\s* \}",
+    "between: \{ ^^^ '<<< $check' \$\$ \} \{ ^^^ '>>>' \$\$ \}",
     " note: [$check]"
   ).join("\n");
 }
