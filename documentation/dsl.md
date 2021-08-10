@@ -14,6 +14,12 @@ A text file contains lines:
 
     file-has-line "{%*ENV<HOME>}/.bashrc", "EDITOR=nano", 'export SP6_REPO';
 
+One could use Raku regular expressions as well, just prepend with `regexp:`
+
+    file-has-line 
+      "{%*ENV<HOME>}/.bashrc",;
+      "regexp: 'EDITOR=' nano || vim"
+
 ##  file-data-not-empty $path, @patterns
 
 A text file contains none empty data:
