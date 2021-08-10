@@ -2,6 +2,10 @@ Revision history for Bird
 
 {{$NEXT}}
 
+0.1.6  2021-08-10T12:13:00Z
+
+    Internal DSL refactoring
+
 0.1.5  2021-08-09T05:32:00Z
 
     start implimenting `k8s` checks
