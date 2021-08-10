@@ -10,18 +10,25 @@ our sub pip3-package-installed ($package) is export {
 
     my @packages = $package.isa(List) ?? $package<> !! $package;
 
-    for @packages -> $p {
-      update-cmd-file qq:to/HERE/;
-      {cmd-header("pip3 package $p is installed?")}
-      pip3 list| grep '$p'
-      {cmd-footer()}
-      HERE
+    my $head = mk-header "pip3 package(s) installed";
 
-      update-state-file qq:to/HERE/;
-      {state-header("pip3 package $p is installed?")}
-      regexp: ^^ '{$p}' \\s+
-      {state-footer()}
-      HERE
+    update-cmd-file(cmd-header($head));
+
+    update-state-file("note: $head {$package.perl}");
+
+    update-state-file(state-header($head));
+
+    for @packages -> $p {
+
+      update-cmd-file "pip3 list 2>&1 | grep '$p'";
+
+      update-state-file "regexp: ^^ '{$p}' \\s+";
+    
     }
+
+    update-cmd-file(cmd-footer());
+
+    update-state-file(state-footer());
+
 }
 
