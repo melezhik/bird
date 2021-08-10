@@ -73,8 +73,8 @@ Run checks against hosts:
 
 ```
 bird:: [read hosts from file] [hosts.pl6]
-bird:: [cmd file] [/root/.bird/915614/cmd.sh]
-bird:: [check file] [/root/.bird/915614/state.check]
+bird:: [cmd file] [/root/.bird/37276/cmd.sh]
+bird:: [check file] [/root/.bird/37276/state.check]
 bird:: [init cmd file]
 [bash: echo hello > /tmp/bird.tmp] :: <empty stdout>
 [bash: echo bird >> /tmp/bird.tmp] :: <empty stdout>
@@ -83,82 +83,93 @@ bird:: [init cmd file]
 [bash: echo username=admin > /tmp/creds.txt; echo passwor ...] :: <empty stdout>
 [repository] :: index updated from file:///root/repo/api/v1/index
 [check my hosts] :: check host [localhost] ...
+[check my hosts] :: <<< test_01: directory /root exists
 [check my hosts] :: directory /root exists
+[check my hosts] :: >>>
+[check my hosts] :: <<< test_02: file /root/.bashrc exists
 [check my hosts] :: file /root/.bashrc exists
-[check my hosts] :: <<< file /tmp/bird.tmp has lines. 0 | lines: ["hello", "bird"]
+[check my hosts] :: >>>
+[check my hosts] :: <<< test_03: file /tmp/bird.tmp has lines
 [check my hosts] :: hello
 [check my hosts] :: bird
 [check my hosts] :: >>>
-[check my hosts] :: <<< file documentation/dsl.md is readable by all ?
+[check my hosts] :: <<< test_04: file documentation/dsl.md is readable by all
 [check my hosts] :: -rw-r--r--
 [check my hosts] :: >>>
-[check my hosts] :: <<< file bin/bird is readable by all ?
+[check my hosts] :: <<< test_05: file bin/bird is readable by all
 [check my hosts] :: -rwxr-xr-x
 [check my hosts] :: >>>
-[check my hosts] :: <<< file bin/bird is executable by all ?
+[check my hosts] :: <<< test_06: file bin/bird is executable by all
 [check my hosts] :: -rwxr-xr-x
 [check my hosts] :: >>>
-[check my hosts] :: <<< file /tmp/bird.tmp is readable by all ?
+[check my hosts] :: <<< test_07: file /tmp/bird.tmp is readable by all
 [check my hosts] :: -rw-rw-rw-
 [check my hosts] :: >>>
-[check my hosts] :: <<< file /tmp/bird.tmp is writable by all ?
+[check my hosts] :: <<< test_08: file /tmp/bird.tmp is writtable by all
 [check my hosts] :: -rw-rw-rw-
 [check my hosts] :: >>>
-[check my hosts] :: <<< command [echo hello; echo bird] has stdout ["hello", "bird"] ?
+[check my hosts] :: <<< test_09: command [echo hello; echo bird] has stdout
 [check my hosts] :: hello
 [check my hosts] :: bird
 [check my hosts] :: >>>
+[check my hosts] :: <<< test_10: command [raku --version] has exit code
 [check my hosts] :: command [raku --version] exit code [0]
+[check my hosts] :: >>>
+[check my hosts] :: <<< test_11: package(s) installed
 [check my hosts] :: Installed Packages
 [check my hosts] :: nano.x86_64                         2.9.8-1.el8                          @baseos
 [check my hosts] :: package nano is installed
-[check my hosts] :: <<< pip3 package PyYAML is installed?
-[check my hosts] :: stderr: WARNING: You are using pip version 21.1.2; however, version 21.2.3 is available.
-You should consider upgrading via the '/usr/bi
-[check my hosts] :: stderr: n/python3.6 -m pip install --upgrade pip' command.
+[check my hosts] :: >>>
+[check my hosts] :: <<< test_12: pip3 package(s) installed
 [check my hosts] :: PyYAML              3.12
 [check my hosts] :: >>>
-[check my hosts] :: <<< file rules.pl6 is readable by all ?
+[check my hosts] :: <<< test_13: file rules.pl6 is readable by all
 [check my hosts] :: -rw-r--r--
 [check my hosts] :: >>>
+[check my hosts] :: <<< test_14: package(s) installed
 [check my hosts] :: Installed Packages
 [check my hosts] :: nano.x86_64                         2.9.8-1.el8                          @baseos
 [check my hosts] :: package nano is installed
-[check my hosts] :: <<< file [/tmp/creds.txt] has none empty data. 0 | data: ["username=", "password="]
-[check my hosts] :: ---> username=[censored]
-[check my hosts] :: ---> password=[censored]
+[check my hosts] :: >>>
+[check my hosts] :: <<< test_15: file /tmp/creds.txt data not empty
+[check my hosts] :: >>>username=[censored]
+[check my hosts] :: >>>password=[censored]
 [check my hosts] :: >>>
 [check my hosts] :: end check host [localhost]
 [check my hosts] :: ==========================================================
-[task check] stdout match <directory /root exists> True
-[task check] stdout match <file /root/.bashrc exists> True
-[task check] [file /tmp/bird.tmp has lines. 0]
+[task check] test_01: directory /root exists
+[task check] stdout match (r) <directory /root exists> True
+[task check] stdout match (r) <file /root/.bashrc exists> True
+[task check] test_03: file /tmp/bird.tmp has lines ["hello", "bird"]
 [task check] stdout match (r) <hello> True
 [task check] stdout match (r) <bird> True
-[task check] [file documentation/dsl.md is readable by all ?]
+[task check] test_04: file documentation/dsl.md is readable by all
 [task check] stdout match (r) <^^^ \S "r"\S\S "r"\S\S "r"\S\S $$> True
-[task check] [file bin/bird is readable by all ?]
+[task check] test_05: file bin/bird is readable by all
 [task check] stdout match (r) <^^^ \S "r"\S\S "r"\S\S "r"\S\S $$> True
-[task check] [file bin/bird is executable by all ?]
+[task check] test_06: file bin/bird is executable by all
 [task check] stdout match (r) <^^^ \S  \S\S"x"  \S\S"x" \S\S"x" $$> True
-[task check] [file /tmp/bird.tmp is readable by all ?]
+[task check] test_07: file /tmp/bird.tmp is readable by all
 [task check] stdout match (r) <^^^ \S "r"\S\S "r"\S\S "r"\S\S $$> True
-[task check] [file /tmp/bird.tmp is writable by all ?]
+[task check] test_08: file /tmp/bird.tmp is writtable by all
 [task check] stdout match (r) <^^^ \S  \S"w"\S  \S"w"\S \S"w"\S $$> True
-[task check] [command [echo hello; echo bird] has stdout ["hello", "bird"] ?]
+[task check] test_09: command [echo hello; echo bird] has stdout ["hello", "bird"]
 [task check] stdout match (r) <hello> True
 [task check] stdout match (r) <bird> True
-[task check] stdout match <command [raku --version] exit code [0]> True
-[task check] stdout match <package nano is installed> True
-[task check] [pip3 package PyYAML is installed?]
+[task check] test_10: command [raku --version] has exit code [0]
+[task check] stdout match (r) <command [raku --version] exit code [0]> True
+[task check] test_11: package(s) installed "nano"
+[task check] stdout match (r) <package nano is installed> True
+[task check] test_12: pip3 package(s) installed "PyYAML"
 [task check] stdout match (r) <^^ 'PyYAML' \s+> True
-[task check] [file rules.pl6 is readable by all ?]
+[task check] test_13: file rules.pl6 is readable by all
 [task check] stdout match (r) <^^^ \S "r"\S\S "r"\S\S "r"\S\S $$> True
-[task check] stdout match <package nano is installed> True
-[task check] [file [/tmp/creds.txt] has none empty data. 0]
-[task check] stdout match (r) <^^ '---> '> True
-[task check] <---> username=[censored] is not empty> True
-[task check] <---> password=[censored] is not empty> True
+[task check] test_14: package(s) installed "nano"
+[task check] stdout match (r) <package nano is installed> True
+[task check] test_15: file /tmp/creds.txt data not empty ["username=", "password="]
+[task check] stdout match (r) <^^ '>>>'> True
+[task check] <>>>username=[censored] is not empty> True
+[task check] <>>>password=[censored] is not empty> True
 ```
 
 # Rules DSL
@@ -229,6 +240,13 @@ Ssh host. Optional, see also `hosts.pl6`
 
 Verbose mode. Not used now. Reserved for the future
 
+# Examples
+
+See:
+
+* `rules.pl6` file
+* `rules/` folder
+
 # Author
 
 Alexey Melezhik
@@ -237,3 +255,7 @@ Alexey Melezhik
 
 * [Chef Inspec](https://www.inspec.io/)
 * [Goss](https://github.com/aelsabbahy/goss)
+
+# Thanks to
+
+God Who inspires me in my life!

@@ -3,7 +3,6 @@ use MIME::Base64;
 
 my $c = from-json captures().map({"$_"}).join("");
 
-say "note: verify deployment. name={$dpl},namespace={$namespace},container={$cnt}";
 $c = $c<spec><template><spec><containers>.grep({ .<name> eq $cnt })[0];
 
 if $config<env> {

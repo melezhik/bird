@@ -8,14 +8,17 @@ use Bird;
 
 our sub k8s-deployment-has ($dpl,$namespace,$cnt,%config = %()) is export {
 
+      my $head = mk-header "k8s deployment name=$dpl namepspace=$namespace container=$cnt";
+
       update-cmd-file qq:to/HERE/;
-      {cmd-header("kubectl get deployment $dpl -n $namespace")}
+      {cmd-header($head)}
       kubectl get deployment $dpl -n $namespace -o json
       {cmd-footer()}
       HERE
 
       update-state-file qq:to/HERE/;
-      {state-header("kubectl get deployment $dpl -n $namespace")}
+      note: $head has structure
+      {state-header($head)}
       regexp: .*
       {state-footer()}
       generator: <<RAKU

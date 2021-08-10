@@ -67,7 +67,6 @@ our sub  state-header ($check) is export {
 
   return (
     "between: \{ ^^^ '<<< $check' \$\$ \} \{ ^^^ '>>>' \$\$ \}",
-    " note: [$check]"
   ).join("\n");
 }
 
