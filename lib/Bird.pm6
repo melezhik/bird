@@ -27,7 +27,7 @@ our sub log ($header,$footer) is export {
 
 our sub mk-header ($head) is export {
 
-  return "{'test_%.2d'.sprintf(++$test-id)} {$head}"
+  return "{'test_%.2d:'.sprintf(++$test-id)} {$head}"
 
 }
 

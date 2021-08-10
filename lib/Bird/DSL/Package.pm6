@@ -43,7 +43,7 @@ our sub package-not-installed ($package) is export {
 
     my @packages = $package.isa(List) ?? $package<> !! $package;
 
-    my $head = mk-header "package(s) installed";
+    my $head = mk-header "package(s) not installed";
 
     update-cmd-file(cmd-header($head));
     
