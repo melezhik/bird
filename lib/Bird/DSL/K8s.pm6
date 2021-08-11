@@ -8,95 +8,121 @@ use Bird;
 
 our sub k8s-deployment-has ($dpl,$namespace,$cnt,%config = %()) is export {
 
-      update-cmd-file "kubectl get deployment $dpl -n $namespace -o json > data.json";
+  update-cmd-file "kubectl get deployment $dpl -n $namespace -o json > data.json";
 
-      if %config<command> {
+  if %config<env> {
 
-        my $head = mk-header "k8s deployment name=$dpl namepspace=$namespace container=$cnt has command";
+      my $head = mk-header "k8s deployment name=$dpl namepspace=$namespace container=$cnt has env";
 
-        update-cmd-file qq:to/HERE/;
-        {cmd-header($head)}
-        cat data.json | jq -r '.spec.template.spec.containers | .[] | select(.name == "$cnt") | .command | .[]'
-        {cmd-footer()};
-        HERE
+      update-cmd-file qq:to/HERE/;
+      {cmd-header($head)}
+      cat data.json | jq -r '.spec.template.spec.containers | .[] | select(.name == "$cnt") | .env | .[] | .name'
+      {cmd-footer()};
+      HERE
 
-        update-state-file qq:to/HERE/;
-        note: $head
-        begin:
-        $head
-        HERE
+      update-state-file qq:to/HERE/;
+      note: $head 
+      note: {%config<env>.perl}
+      {state-header($head)}
+      HERE
 
-        if %config<command>.isa(Str) {
-          update-state-file(%config<command>);
-        } else {
-          for %config<command><> -> $i {
-            update-state-file($i)
-          }
+      for %config<env><> -> $i {
+        update-state-file($i)
+      }
+
+      update-state-file(state-footer());
+
+  }
+
+  if %config<command> {
+
+      my $head = mk-header "k8s deployment name=$dpl namepspace=$namespace container=$cnt has command";
+
+      update-cmd-file qq:to/HERE/;
+      {cmd-header($head)}
+      cat data.json | jq -r '.spec.template.spec.containers | .[] | select(.name == "$cnt") | .command | .[]'
+      {cmd-footer()};
+      HERE
+
+      update-state-file qq:to/HERE/;
+      note: $head
+      begin:
+      $head
+      HERE
+
+      if %config<command>.isa(Str) {
+        update-state-file(%config<command>);
+      } else {
+        for %config<command><> -> $i {
+          update-state-file($i)
         }
-        update-state-file(state-footer());
-        update-state-file("end:")
+      }
+      update-state-file(state-footer());
+      update-state-file("end:")
+
+  }
+
+  if %config<command-args> {
+
+    my $head = mk-header "k8s deployment name=$dpl namepspace=$namespace container=$cnt has command-args";
+
+    update-cmd-file qq:to/HERE/;
+    {cmd-header($head)}
+    cat data.json | jq -r '.spec.template.spec.containers | .[] | select(.name == "$cnt") | .args | .[]'
+    {cmd-footer()};
+    HERE
+
+    update-state-file qq:to/HERE/;
+    note: $head
+    begin:
+    $head
+    HERE
+
+    if %config<command-args>.isa(Str) {
+      update-state-file(%config<command-args>);
+    } else {
+      for %config<command-args><> -> $i {
+        update-state-file($i)
+      }
     }
 
-      if %config<command-args> {
+    update-state-file(state-footer());
+    update-state-file("end:")
 
-        my $head = mk-header "k8s deployment name=$dpl namepspace=$namespace container=$cnt has command-args";
+  }
 
-        update-cmd-file qq:to/HERE/;
-        {cmd-header($head)}
-        cat data.json | jq -r '.spec.template.spec.containers | .[] | select(.name == "$cnt") | .args | .[]'
-        {cmd-footer()};
-        HERE
 
-        update-state-file qq:to/HERE/;
-        note: $head
-        begin:
-        $head
-        HERE
+  if %config<volume-mounts> {
 
-        if %config<command-args>.isa(Str) {
-          update-state-file(%config<command-args>);
-        } else {
-          for %config<command-args><> -> $i {
-            update-state-file($i)
-          }
+      my $head = mk-header "k8s deployment name=$dpl namepspace=$namespace container=$cnt has volume-mounts";
+
+      update-cmd-file cmd-header($head);
+      update-cmd-file Q{cat data.json | jq -r '.spec.template.spec.containers | .[] | select(.name == "} ~ 
+      $cnt ~ Q{") | .volumeMounts | .[] | "[\(.name) \(.mountPath)@\(.subPath)]"'};
+      update-cmd-file cmd-footer();
+
+      update-state-file qq:to/HERE/;
+      note: $head 
+      note: {%config<volume-mounts>.perl}
+      $head
+      HERE
+
+      if %config<volume-mounts>.isa(Array) {
+        for %config<volume-mounts><> -> $i {
+          my $v = $i ~~ /'@'/ ?? $i !! "{$i}@null";
+          update-state-file("[$v]")
         }
-
-        update-state-file(state-footer());
-        update-state-file("end:")
-
-    }
-
-
-      if %config<volume-mounts> {
-
-        my $head = mk-header "k8s deployment name=$dpl namepspace=$namespace container=$cnt has volume-mounts";
-
-        update-cmd-file cmd-header($head);
-        update-cmd-file Q{cat data.json | jq -r '.spec.template.spec.containers | .[] | select(.name == "} ~ 
-        $cnt ~ Q{") | .volumeMounts | .[] | "[\(.name) \(.mountPath)@\(.subPath)]"'};
-        update-cmd-file cmd-footer();
-
-        update-state-file qq:to/HERE/;
-        note: $head {%config<volume-mounts>.perl}
-        $head
-        HERE
-
-        if %config<volume-mounts>.isa(Array) {
-          for %config<volume-mounts><> -> $i {
-            my $v = $i ~~ /'@'/ ?? $i !! "{$i}@null";
-            update-state-file("[$v]")
-          }
-        } else {
-          my %h = %config<volume-mounts>;
-          for %h -> $i {
-            my $v = $i.value ~~ /'@'/ ?? $i.value !! "{$i.value}@null";
-            update-state-file("[{$i.key} {$v}]")
-          }
+      } else {
+        my %h = %config<volume-mounts>;
+        for %h -> $i {
+          my $v = $i.value ~~ /'@'/ ?? $i.value !! "{$i.value}@null";
+          update-state-file("[{$i.key} {$v}]")
         }
+      }
 
-        update-state-file(state-footer());
+      update-state-file(state-footer());
 
-    }
+  }
 
 }
 
