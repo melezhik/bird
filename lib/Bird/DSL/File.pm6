@@ -20,6 +20,7 @@ our sub file-exists ($path) is export {
     HERE
 
     update-state-file qq:to/HERE/;
+    note: $head
     {state-header($head)}
     file $path exists
     {state-footer()}

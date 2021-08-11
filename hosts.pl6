@@ -1,1 +1,5 @@
-[ 'localhost' ]
+[ 
+
+  'localhost', 
+  'sparrowhub.io'
+]
