@@ -8,7 +8,7 @@ use Bird;
 
 our sub k8s-deployment-has ($dpl,$namespace,$cnt,%config = %()) is export {
 
-  update-cmd-file "kubectl get deployment $dpl -n $namespace -o json > data.json";
+  update-cmd-file "kubectl get deployment $dpl -n $namespace -o json > /tmp/.k8s-dpl-data.json";
 
   if %config<env> {
 
@@ -16,7 +16,7 @@ our sub k8s-deployment-has ($dpl,$namespace,$cnt,%config = %()) is export {
 
       update-cmd-file qq:to/HERE/;
       {cmd-header($head)}
-      cat data.json | jq -r '.spec.template.spec.containers | .[] | select(.name == "$cnt") | .env | .[] | .name'
+      cat /tmp/.k8s-dpl-data.json | jq -r '.spec.template.spec.containers | .[] | select(.name == "$cnt") | .env | .[] | .name'
       {cmd-footer()};
       HERE
 
@@ -40,7 +40,7 @@ our sub k8s-deployment-has ($dpl,$namespace,$cnt,%config = %()) is export {
 
       update-cmd-file qq:to/HERE/;
       {cmd-header($head)}
-      cat data.json | jq -r '.spec.template.spec.containers | .[] | select(.name == "$cnt") | .command | .[]'
+      cat /tmp/.k8s-dpl-data.json | jq -r '.spec.template.spec.containers | .[] | select(.name == "$cnt") | .command | .[]'
       {cmd-footer()};
       HERE
 
@@ -68,7 +68,7 @@ our sub k8s-deployment-has ($dpl,$namespace,$cnt,%config = %()) is export {
 
     update-cmd-file qq:to/HERE/;
     {cmd-header($head)}
-    cat data.json | jq -r '.spec.template.spec.containers | .[] | select(.name == "$cnt") | .args | .[]'
+    cat /tmp/.k8s-dpl-data.json | jq -r '.spec.template.spec.containers | .[] | select(.name == "$cnt") | .args | .[]'
     {cmd-footer()};
     HERE
 
@@ -97,7 +97,7 @@ our sub k8s-deployment-has ($dpl,$namespace,$cnt,%config = %()) is export {
       my $head = mk-header "k8s deployment name=$dpl namepspace=$namespace container=$cnt has volume-mounts";
 
       update-cmd-file cmd-header($head);
-      update-cmd-file Q{cat data.json | jq -r '.spec.template.spec.containers | .[] | select(.name == "} ~ 
+      update-cmd-file Q{cat /tmp/.k8s-dpl-data.json | jq -r '.spec.template.spec.containers | .[] | select(.name == "} ~ 
       $cnt ~ Q{") | .volumeMounts | .[] | "[\(.name) \(.mountPath)@\(.subPath)]"'};
       update-cmd-file cmd-footer();
 
