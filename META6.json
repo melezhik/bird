@@ -21,8 +21,7 @@
     "Bird::DSL::K8s" : "lib/Bird/DSL/K8s.pm6"
   },
   "resources" : [
-    "utils.sh",
-    "k8s-deployment-check.raku"
+    "utils.sh"
   ],
   "source-type" : "git",
   "source-url" : "https://github.com/melezhik/bird",
