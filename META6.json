@@ -5,7 +5,7 @@
   ],
   "build-depends" : [ ],
   "depends" : [
-    "Sparrow6"
+    "Sparrow6:ver<0.0.34+>"
   ],
   "description" : "Bird - Raku DSL for Linux Servers Verification",
   "license" : "Artistic-2.0",
@@ -32,5 +32,5 @@
   },
   "tags" : [ ],
   "test-depends" : [ ],
-  "version" : "0.1.6"
+  "version" : "0.1.7"
 }
