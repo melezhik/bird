@@ -1,5 +1,5 @@
 [ 
 
   'localhost', 
-  'sparrowhub.io'
+  #'sparrowhub.io'
 ]
