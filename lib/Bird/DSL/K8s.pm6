@@ -58,7 +58,6 @@ our sub k8s-deployment-has ($dpl,$namespace,$cnt,%config = %()) is export {
         }
       }
       update-state-file(state-footer());
-      update-state-file("end:")
 
   }
 
@@ -87,7 +86,6 @@ our sub k8s-deployment-has ($dpl,$namespace,$cnt,%config = %()) is export {
     }
 
     update-state-file(state-footer());
-    update-state-file("end:")
 
   }
 
