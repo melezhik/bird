@@ -96,6 +96,13 @@ A service is running:
     # check if nginx service is running
     service-is-running "nginx";
 
+## service-is-enabled $srv
+
+A service is enabled:
+
+    # check if nginx service is enabled
+    service-is-enabled "nginx";
+
 ## k8s-deployment-has ($dpl,$namespace,$cnt,%config)
 
 Checks k8s deployment:
