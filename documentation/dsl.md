@@ -89,7 +89,12 @@ A command exists with an exit code:
     # make sure we have an unzip
     command-exit-code "unzip", 0;        
 
+## service-is-running $srv
 
+A service is running:
+
+    # check if nginx service is running
+    service-is-running "nginx";
 
 ## k8s-deployment-has ($dpl,$namespace,$cnt,%config)
 

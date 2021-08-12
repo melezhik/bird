@@ -18,6 +18,7 @@
     "Bird::DSL::Package" : "lib/Bird/DSL/Package.pm6",
     "Bird::DSL::Pip" : "lib/Bird/DSL/Pip.pm6",
     "Bird::DSL::Command" : "lib/Bird/DSL/Command.pm6",
+    "Bird::DSL::Service" : "lib/Bird/DSL/Service.pm6",
     "Bird::DSL::K8s" : "lib/Bird/DSL/K8s.pm6"
   },
   "resources" : [
