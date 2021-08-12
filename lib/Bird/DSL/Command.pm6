@@ -17,7 +17,8 @@ our sub command-has-stdout (Str:D $cmd,*@lines) is export {
     HERE
 
     update-state-file qq:to/HERE/;
-    note: $head {@lines.perl}
+    note: $head 
+    note: {@lines.perl}
     {state-header($head)}
     {@lines.join("\n")}
     {state-footer()}

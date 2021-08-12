@@ -57,7 +57,7 @@ our sub file-data-not-empty (Str:D $path,*@pattern) is export {
     my @c;
     for @pattern -> $pattern {
         @c.push: "s/($pattern)\\S+/\$1.\"[censored]\"/ge";
-        @c.push: "s/(.*$pattern)/\">>>\".\$1/ge";
+        @c.push: "s/(.*$pattern)/\">>> \".\$1/ge";
     }
     update-cmd-file "perl -n -e '{@c.join: '; '}; print' $path";
     update-cmd-file cmd-footer();

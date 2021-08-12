@@ -78,9 +78,9 @@ Packages are installed:
 
 ## command-has-stdout $command, @arrays-of-lines
 
-A command has lines in stdoud:
+A command has lines in stdout:
 
-    command-has-stdoud "echo hello; echo bird", "hello", "bird";
+    command-has-stdout "echo hello; echo bird", "hello", "bird";
 
 ## command-exit-code $command, $code
 
@@ -88,3 +88,79 @@ A command exists with an exit code:
 
     # make sure we have an unzip
     command-exit-code "unzip", 0;        
+
+
+
+## k8s-deployment-has ($dpl,$namespace,$cnt,%config = %())
+
+Checks k8s deployment:
+
+    my %data = task-run "dpl check", "k8s-deployment-check" %(
+      namespace => "pets",
+      cat => %(
+        command => "/usr/bin/cat",
+        args => [
+          "eat", "milk", "fish" 
+        ],
+        env => {
+          "ENABLE_LOGGING" => "false",
+        }
+        volume-mounts => {
+          foo-bar => "/opt/foo/bar",
+        }
+      )
+    );
+
+# Parameters
+
+## dpl
+
+K8s deployment name. Required.
+
+## namespace
+
+K8s namespace name. Required.
+
+## cnt
+
+K8s container name. Required.
+
+### config
+
+Raku hash. Sets k8s resource attributes to check. Following as config hash attributes.
+
+## volume-mounts
+
+Array|Hash. List of mounted volumes in a format
+
+Array:
+
+    "name mountpath"
+
+Hash:
+
+    name => mountpath
+
+For subPath use following notation:
+
+Array:
+
+    "name mountpath@subpath"
+
+Hash:
+
+    name => mountpath@subpath
+
+## env
+
+Hash. List of environment variables in a format:
+
+    name => value
+
+## command
+
+Array|Str. Docker command
+
+## command-args
+
+Array|Str. Docker command arguments
