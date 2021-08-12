@@ -111,25 +111,25 @@ Checks k8s deployment:
       )
     );
 
-# Parameters
+### Parameters
 
-## dpl
+#### dpl
 
 K8s deployment name. Required.
 
-## namespace
+#### namespace
 
 K8s namespace name. Required.
 
-## cnt
+#### cnt
 
 K8s container name. Required.
 
-### config
+#### config
 
 Raku hash. Sets k8s resource attributes to check. Following as config hash attributes.
 
-## volume-mounts
+##### volume-mounts
 
 Array|Hash. List of mounted volumes in a format
 
@@ -151,16 +151,16 @@ Hash:
 
     name => mountpath@subpath
 
-## env
+##### env
 
 Hash. List of environment variables in a format:
 
     name => value
 
-## command
+##### command
 
 Array|Str. Docker command
 
-## command-args
+##### command-args
 
 Array|Str. Docker command arguments
