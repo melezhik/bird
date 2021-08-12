@@ -2,6 +2,8 @@ Revision history for Bird
 
 {{$NEXT}}
 
+0.1.8  2021-08-12T04:35:00Z
+
     Impliment k8s deployment check
 
 0.1.7  2021-08-11T09:55:00Z

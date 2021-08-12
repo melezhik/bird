@@ -31,41 +31,43 @@ Create rules:
 
 `cat rules.pl6`
 
-    directory-exists "{%*ENV<HOME>}";
+```raku
+directory-exists "{%*ENV<HOME>}";
 
-    file-exists "{%*ENV<HOME>}/.bashrc";
+file-exists "{%*ENV<HOME>}/.bashrc";
 
-    bash "echo hello > /tmp/bird.tmp";
+bash "echo hello > /tmp/bird.tmp";
 
-    bash "echo bird >> /tmp/bird.tmp";
+bash "echo bird >> /tmp/bird.tmp";
 
-    file-has-line "/tmp/bird.tmp", "hello", "bird";
+file-has-line "/tmp/bird.tmp", "hello", "bird";
 
-    file-has-permission "documentation/dsl.md", %( read-all => True );
-    file-has-permission "bin/bird", %( execute-all => True, read-all => True );
+file-has-permission "documentation/dsl.md", %( read-all => True );
+file-has-permission "bin/bird", %( execute-all => True, read-all => True );
 
-    bash "chmod a+r /tmp/bird.tmp";
+bash "chmod a+r /tmp/bird.tmp";
 
-    bash "chmod a+w /tmp/bird.tmp";
+bash "chmod a+w /tmp/bird.tmp";
 
-    file-has-permission "/tmp/bird.tmp", %( write-all => True, read-all => True );
+file-has-permission "/tmp/bird.tmp", %( write-all => True, read-all => True );
 
-    command-has-stdout "echo hello; echo bird", "hello", "bird";
+command-has-stdout "echo hello; echo bird", "hello", "bird";
 
-    command-exit-code "raku --version", 0;
+command-exit-code "raku --version", 0;
 
-    package-installed "nano";
+package-installed "nano";
 
-    pip3-package-installed "PyYAML";
+pip3-package-installed "PyYAML";
 
-    file-has-permission "rules.pl6", %( read-all => True );
+file-has-permission "rules.pl6", %( read-all => True );
 
-    package-installed "nano";
+package-installed "nano";
 
-    bash "echo username=admin > /tmp/creds.txt; echo password=123 >> /tmp/creds.txt;";
+bash "echo username=admin > /tmp/creds.txt; echo password=123 >> /tmp/creds.txt;";
 
-    file-data-not-empty "/tmp/creds.txt",
-      "username=", "password=";
+file-data-not-empty "/tmp/creds.txt",
+  "username=", "password=";
+```
 
 Run checks against hosts:
 
@@ -73,8 +75,8 @@ Run checks against hosts:
 
 ```
 bird:: [read hosts from file] [hosts.pl6]
-bird:: [cmd file] [/root/.bird/37276/cmd.sh]
-bird:: [check file] [/root/.bird/37276/state.check]
+bird:: [cmd file] [/root/.bird/274302/cmd.sh]
+bird:: [check file] [/root/.bird/274302/state.check]
 bird:: [init cmd file]
 [bash: echo hello > /tmp/bird.tmp] :: <empty stdout>
 [bash: echo bird >> /tmp/bird.tmp] :: <empty stdout>
@@ -82,7 +84,8 @@ bird:: [init cmd file]
 [bash: chmod a+w /tmp/bird.tmp] :: <empty stdout>
 [bash: echo username=admin > /tmp/creds.txt; echo passwor ...] :: <empty stdout>
 [repository] :: index updated from file:///root/repo/api/v1/index
-[check my hosts] :: check host [localhost] ...
+[check my hosts] :: check host [localhost]
+[check my hosts] :: ==========================================================
 [check my hosts] :: <<< test_01: directory /root exists
 [check my hosts] :: directory /root exists
 [check my hosts] :: >>>
@@ -132,13 +135,15 @@ bird:: [init cmd file]
 [check my hosts] :: package nano is installed
 [check my hosts] :: >>>
 [check my hosts] :: <<< test_15: file /tmp/creds.txt data not empty
-[check my hosts] :: >>>username=[censored]
-[check my hosts] :: >>>password=[censored]
+[check my hosts] :: >>> username=[censored]
+[check my hosts] :: >>> password=[censored]
 [check my hosts] :: >>>
 [check my hosts] :: end check host [localhost]
 [check my hosts] :: ==========================================================
+[task check] verify host [localhost] start
 [task check] test_01: directory /root exists
 [task check] stdout match (r) <directory /root exists> True
+[task check] test_02: file /root/.bashrc exists
 [task check] stdout match (r) <file /root/.bashrc exists> True
 [task check] test_03: file /tmp/bird.tmp has lines ["hello", "bird"]
 [task check] stdout match (r) <hello> True
@@ -153,7 +158,8 @@ bird:: [init cmd file]
 [task check] stdout match (r) <^^^ \S "r"\S\S "r"\S\S "r"\S\S $$> True
 [task check] test_08: file /tmp/bird.tmp is writtable by all
 [task check] stdout match (r) <^^^ \S  \S"w"\S  \S"w"\S \S"w"\S $$> True
-[task check] test_09: command [echo hello; echo bird] has stdout ["hello", "bird"]
+[task check] test_09: command [echo hello; echo bird] has stdout
+[task check] ["hello", "bird"]
 [task check] stdout match (r) <hello> True
 [task check] stdout match (r) <bird> True
 [task check] test_10: command [raku --version] has exit code [0]
@@ -168,8 +174,9 @@ bird:: [init cmd file]
 [task check] stdout match (r) <package nano is installed> True
 [task check] test_15: file /tmp/creds.txt data not empty ["username=", "password="]
 [task check] stdout match (r) <^^ '>>>'> True
-[task check] <>>>username=[censored] is not empty> True
-[task check] <>>>password=[censored] is not empty> True
+[task check] <>>> username=[censored] is not empty> True
+[task check] <>>> password=[censored] is not empty> True
+[task check] verify host [localhost] end
 ```
 
 # Rules DSL

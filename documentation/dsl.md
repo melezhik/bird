@@ -91,7 +91,7 @@ A command exists with an exit code:
 
 
 
-## k8s-deployment-has ($dpl,$namespace,$cnt,%config = %())
+## k8s-deployment-has ($dpl,$namespace,$cnt,%config)
 
 Checks k8s deployment:
 
