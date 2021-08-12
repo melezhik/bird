@@ -155,9 +155,9 @@ Hash:
 
 * env
 
-Hash. List of environment variables in a format:
+Array. List of environment variables in a format:
 
-    name => value
+    ['env1', 'env2', 'env3' ]
 
 * command
 
