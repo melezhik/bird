@@ -103,6 +103,16 @@ A service is enabled:
     # check if nginx service is enabled
     service-is-enabled "nginx";
 
+## service-listen-to $srv, $port, $localhost-mode = False
+
+A service listens to a tcp port:
+
+    # nginx listens to 444
+    service-listen-to "nginx", 443;
+
+    # rakudo listens to 5000 on localhost
+    service-listen-to "rakudo", 5000, True;
+
 ## k8s-deployment-has ($dpl,$namespace,$cnt,%config)
 
 Checks k8s deployment:
