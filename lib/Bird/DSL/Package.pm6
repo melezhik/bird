@@ -23,6 +23,8 @@ our sub package-installed ($package) is export {
       update-cmd-file qq:to/HERE/;
       if test "\$os" = "debian" || test "\$os" = "ubuntu"; then
         if dpkg -s $p 1>/dev/null 2>&1; then echo "package $p is installed"; else echo "package $p is not installed"; fi
+      elif test "\$os" = "darwin"; then
+        if brew list $package 1>/dev/null 2>&1; then echo "package $p is installed"; else echo "package $p is not installed"; fi
       else
         if yum list installed $p; then echo "package $p is installed"; else echo "package $p is not installed"; fi
       fi
@@ -56,6 +58,8 @@ our sub package-not-installed ($package) is export {
       update-cmd-file qq:to/HERE/;
       if test "\$os" = "debian" || test "\$os" = "ubuntu"; then
         if dpkg -s $p 1>/dev/null 2>&1; then echo "package $p is installed"; else echo "package $p is not installed"; fi
+      elif test "\$os" = "darwin"; then
+        if brew list $package 1>/dev/null 2>&1; then echo "package $p is installed"; else echo "package $p is not installed"; fi
       else
         if yum list installed $p; then echo "package $p is installed"; else echo "package $p is not installed"; fi
       fi
