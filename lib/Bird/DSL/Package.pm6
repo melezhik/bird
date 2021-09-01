@@ -25,6 +25,8 @@ our sub package-installed ($package) is export {
         if dpkg -s $p 1>/dev/null 2>&1; then echo "package $p is installed"; else echo "package $p is not installed"; fi
       elif test "\$os" = "openbsd"; then
         if pkg_info -e '$p' 1>/dev/null 2>&1; then echo "package $p is installed"; else echo "package $p is not installed"; fi
+      elif test "\$os" = "darwin"; then
+        if brew list $package 1>/dev/null 2>&1; then echo "package $p is installed"; else echo "package $p is not installed"; fi
       else
         if yum list installed $p; then echo "package $p is installed"; else echo "package $p is not installed"; fi
       fi
@@ -60,6 +62,8 @@ our sub package-not-installed ($package) is export {
         if dpkg -s $p 1>/dev/null 2>&1; then echo "package $p is installed"; else echo "package $p is not installed"; fi
       elif test "\$os" = "openbsd"; then
         if pkg_info -e '$p' 1>/dev/null 2>&1; then echo "package $p is installed"; else echo "package $p is not installed"; fi
+      elif test "\$os" = "darwin"; then
+        if brew list $package 1>/dev/null 2>&1; then echo "package $p is installed"; else echo "package $p is not installed"; fi
       else
         if yum list installed $p; then echo "package $p is installed"; else echo "package $p is not installed"; fi
       fi
