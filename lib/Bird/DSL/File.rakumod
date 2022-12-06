@@ -1,4 +1,4 @@
-#!perl6
+#!raku
 
 use v6;
 
@@ -71,7 +71,7 @@ our sub file-data-not-empty (Str:D $path,*@pattern) is export {
 
     update-state-file q:to/HERE/;
     generator: <<RAKU
-    !perl6
+    !raku
     for matched()<> -> $ml {
       say "assert: ", $ml ~~ /'[censored]'/ ?? 1 !! 0, " $ml is not empty";
     }

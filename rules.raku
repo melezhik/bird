@@ -25,7 +25,7 @@ package-installed "nano";
 
 pip3-package-installed "PyYAML";
 
-file-has-permission "rules.pl6", %( read-all => True );
+file-has-permission "rules.raku", %( read-all => True );
 
 package-installed "nano";
 

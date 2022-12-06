@@ -10,7 +10,7 @@ Bird is under active development now, things might change.
 
 # Build Status
 
-[![Build Status](https://travis-ci.org/melezhik/bird.svg?branch=master)](https://travis-ci.org/melezhik/bird)
+[![SparrowCI](https://ci.sparrowhub.io/project/gh-melezhik-bird/badge)](https://ci.sparrowhub.io)
 
 # INSTALL
 
@@ -29,7 +29,7 @@ To run check remotely install ssh-pass:
 
 Create rules:
 
-`cat rules.pl6`
+`cat rules.raku`
 
 ```raku
 directory-exists "{%*ENV<HOME>}";
@@ -59,7 +59,7 @@ package-installed "nano";
 
 pip3-package-installed "PyYAML";
 
-file-has-permission "rules.pl6", %( read-all => True );
+file-has-permission "rules.raku", %( read-all => True );
 
 package-installed "nano";
 
@@ -74,7 +74,7 @@ Run checks against hosts:
 `bird`
 
 ```
-bird:: [read hosts from file] [hosts.pl6]
+bird:: [read hosts from file] [hosts.raku]
 bird:: [cmd file] [/root/.bird/274302/cmd.sh]
 bird:: [check file] [/root/.bird/274302/state.check]
 bird:: [init cmd file]
@@ -126,7 +126,7 @@ bird:: [init cmd file]
 [check my hosts] :: <<< test_12: pip3 package(s) installed
 [check my hosts] :: PyYAML              3.12
 [check my hosts] :: >>>
-[check my hosts] :: <<< test_13: file rules.pl6 is readable by all
+[check my hosts] :: <<< test_13: file rules.raku is readable by all
 [check my hosts] :: -rw-r--r--
 [check my hosts] :: >>>
 [check my hosts] :: <<< test_14: package(s) installed
@@ -168,7 +168,7 @@ bird:: [init cmd file]
 [task check] stdout match (r) <package nano is installed> True
 [task check] test_12: pip3 package(s) installed "PyYAML"
 [task check] stdout match (r) <^^ 'PyYAML' \s+> True
-[task check] test_13: file rules.pl6 is readable by all
+[task check] test_13: file rules.raku is readable by all
 [task check] stdout match (r) <^^^ \S "r"\S\S "r"\S\S "r"\S\S $$> True
 [task check] test_14: package(s) installed "nano"
 [task check] stdout match (r) <package nano is installed> True
@@ -199,9 +199,9 @@ By using `--host`, `--user`, `--password` options:
 
     bird --host=192.168.0.1 --user=alex --password=PasSword
 
-## Hosts.pl6
+## Hosts.raku
 
-To define dynamic hosts configuration, use `hosts.pl6`, this should
+To define dynamic hosts configuration, use `hosts.raku`, this should
 be Raku script that returns `@Array` of hosts:
 
     [
@@ -241,7 +241,7 @@ Ssh user. Optional
 
 * `--host`
 
-Ssh host. Optional, see also `hosts.pl6`
+Ssh host. Optional, see also `hosts.raku`
 
 * `--verbose`
 
@@ -251,7 +251,7 @@ Verbose mode. Not used now. Reserved for the future
 
 See:
 
-* `rules.pl6` file
+* `rules.raku` file
 * `rules/` folder
 
 # Author

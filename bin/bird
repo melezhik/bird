@@ -1,4 +1,4 @@
-#!perl6
+#!raku
 
 use Bird;
 use Sparrow6::DSL;
@@ -11,13 +11,15 @@ use Bird::DSL::Command;
 use Bird::DSL::Service;
 use Bird::DSL::K8s;
 
+%*ENV<SP6_FORMAT_COLOR> = 1;
+
 sub MAIN (
 
   Bool :$verbose = False, 
   Str  :$host,
   Str  :$user,
   Str  :$password,
-  Str  :$rules = "rules.pl6",
+  Str  :$rules = "rules.raku",
 
 )
 
@@ -27,14 +29,14 @@ sub MAIN (
   if $host {
     if $host.IO ~~ :f {
       log("read host from file", $host);
-      @hosts = EVALFILE "hosts.pl6";
+      @hosts = EVALFILE "hosts.raku";
     } else {
         log("read host from command line", $host);
         @hosts = $host;
     }
-  } elsif "hosts.pl6".IO ~~ :f {
-    log("read hosts from file", "hosts.pl6");
-    @hosts = EVALFILE "hosts.pl6";
+  } elsif "hosts.raku".IO ~~ :f {
+    log("read hosts from file", "hosts.raku");
+    @hosts = EVALFILE "hosts.raku";
   } else {
       die "need host(s)"
   }

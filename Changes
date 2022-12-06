@@ -3,10 +3,12 @@ Revision history for Bird
 {{$NEXT}}
 
     Mac OS support for package* functions
+    pl6 -> raku renaming
+    Add sparrowci pipeline
 
 0.1.8  2021-08-12T04:35:00Z
 
-    Impliment k8s deployment check
+    Implement k8s deployment check
 
 0.1.7  2021-08-11T09:55:00Z
 
@@ -18,7 +20,7 @@ Revision history for Bird
 
 0.1.5  2021-08-09T05:32:00Z
 
-    start implimenting `k8s` checks
+    start implementing `k8s` checks
     file has none empty data check
 
 0.1.4  2021-08-04T03:29:00Z

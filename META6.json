@@ -12,14 +12,14 @@
   "name" : "bird",
   "perl" : "6.*",
   "provides" : {
-    "Bird" : "lib/Bird.pm6",
-    "Bird::DSL::File" : "lib/Bird/DSL/File.pm6",
-    "Bird::DSL::Directory" : "lib/Bird/DSL/Directory.pm6",
-    "Bird::DSL::Package" : "lib/Bird/DSL/Package.pm6",
-    "Bird::DSL::Pip" : "lib/Bird/DSL/Pip.pm6",
-    "Bird::DSL::Command" : "lib/Bird/DSL/Command.pm6",
-    "Bird::DSL::Service" : "lib/Bird/DSL/Service.pm6",
-    "Bird::DSL::K8s" : "lib/Bird/DSL/K8s.pm6"
+    "Bird" : "lib/Bird.rakumod",
+    "Bird::DSL::File" : "lib/Bird/DSL/File.rakumod",
+    "Bird::DSL::Directory" : "lib/Bird/DSL/Directory.rakumod",
+    "Bird::DSL::Package" : "lib/Bird/DSL/Package.rakumod",
+    "Bird::DSL::Pip" : "lib/Bird/DSL/Pip.rakumod",
+    "Bird::DSL::Command" : "lib/Bird/DSL/Command.rakumod",
+    "Bird::DSL::Service" : "lib/Bird/DSL/Service.rakumod",
+    "Bird::DSL::K8s" : "lib/Bird/DSL/K8s.rakumod"
   },
   "resources" : [
     "utils.sh"
@@ -32,5 +32,5 @@
   },
   "tags" : [ ],
   "test-depends" : [ ],
-  "version" : "0.1.8"
+  "version" : "0.1.9"
 }
