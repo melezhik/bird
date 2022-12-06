@@ -72,7 +72,8 @@ tasks:
 
           export SP6_DUMP_TASK_CODE=0
 
-          sudo apt-get install -qy python3-yaml nano
+          sudo apt-get install -qy nano
+          pip3 install -U pyaml
 
           cd source/
           zef install . --deps-only --test-depends --build-depends --/test -to=home
