@@ -94,3 +94,6 @@ tasks:
       sudo mv rakubrew /usr/local/bin
       sudo chmod a+x /usr/local/bin/rakubrew
       rakubrew mode shim
+
+followup_job: .sparrow/publish.yaml
+
