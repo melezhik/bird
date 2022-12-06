@@ -72,9 +72,6 @@ tasks:
 
           export SP6_DUMP_TASK_CODE=0
 
-          sudo apt-get install -qy nano
-          pip3 install -U pyaml
-
           cd source/
           zef install . --deps-only --test-depends --build-depends --/test -to=home
           /usr/bin/time -f "%E real,%U user,%S sys | CPU Percentage: %P" -o "${cache_root_dir}/${version}_time" \
@@ -89,6 +86,9 @@ tasks:
     code: |
       set -e
       sudo apt-get install -y time
+      sudo apt-get install -qy nano python3-pip
+      pip3 install -U pyaml
+
       zef install --/test Text::Table::Simple
       curl -sf https://rakubrew.org/perl/rakubrew -o rakubrew
       sudo mv rakubrew /usr/local/bin
