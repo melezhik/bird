@@ -60,7 +60,7 @@ tasks:
           echo "Linux version: $os"
           export PATH=$(rakubrew home)/shims:$PATH
           rakubrew download moar-$version
-          rakubrew switch $version
+          rakubrew switch moar-$version
           which raku
           which zef
           raku --version
