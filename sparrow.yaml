@@ -71,7 +71,8 @@ tasks:
           zef --version
 
           export SP6_DUMP_TASK_CODE=0
-          sudo apk add  py3-yaml nano
+
+          sudo apt-get install -qy python3-yaml nano
 
           cd source/
           zef install . --deps-only --test-depends --build-depends --/test -to=home
