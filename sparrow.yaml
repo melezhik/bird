@@ -65,12 +65,12 @@ tasks:
           which zef
           raku --version
           zef --version
-          
+
           cd source/
-          zef install . --deps-only --test-depends --build-depends --/test -to=home         
+          zef install . --deps-only --test-depends --build-depends --/test -to=home
           /usr/bin/time -f "%E real,%U user,%S sys | CPU Percentage: %P" -o "${cache_root_dir}/${version}_time" \
-          zef test . && tomty --all --show-failed && touch "${cache_root_dir}/${version}_ok"
-          
+          zef install . && tomty --all --show-failed && touch "${cache_root_dir}/${version}_ok"
+
     depends:
       -
         name: install-deps
@@ -79,7 +79,7 @@ tasks:
     language: Bash
     code: |
       set -e
-      sudo apt-get install -y time 
+      sudo apt-get install -y time
       zef install --/test Text::Table::Simple
       curl -sf https://rakubrew.org/perl/rakubrew -o rakubrew
       sudo mv rakubrew /usr/local/bin
