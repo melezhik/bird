@@ -121,7 +121,7 @@ tasks:
           zef install --/test fez
           tom --clean
           fez upload
-       depends:
+     depends:
         -
           name: git-commit
   - 
