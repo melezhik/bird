@@ -125,9 +125,9 @@ tasks:
       depends:
         -
           name: git-commit
-    - name: git-commit
-      plugin: git-commit-data
-      config:
-        dir: source
+  - name: git-commit
+    plugin: git-commit-data
+    config:
+      dir: source
       
 
