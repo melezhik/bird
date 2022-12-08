@@ -108,7 +108,7 @@ bird:: [init cmd file]
 [check my hosts] :: <<< test_07: file /tmp/bird.tmp is readable by all
 [check my hosts] :: -rw-rw-rw-
 [check my hosts] :: >>>
-[check my hosts] :: <<< test_08: file /tmp/bird.tmp is writtable by all
+[check my hosts] :: <<< test_08: file /tmp/bird.tmp is writable by all
 [check my hosts] :: -rw-rw-rw-
 [check my hosts] :: >>>
 [check my hosts] :: <<< test_09: command [echo hello; echo bird] has stdout
@@ -156,7 +156,7 @@ bird:: [init cmd file]
 [task check] stdout match (r) <^^^ \S  \S\S"x"  \S\S"x" \S\S"x" $$> True
 [task check] test_07: file /tmp/bird.tmp is readable by all
 [task check] stdout match (r) <^^^ \S "r"\S\S "r"\S\S "r"\S\S $$> True
-[task check] test_08: file /tmp/bird.tmp is writtable by all
+[task check] test_08: file /tmp/bird.tmp is writable by all
 [task check] stdout match (r) <^^^ \S  \S"w"\S  \S"w"\S \S"w"\S $$> True
 [task check] test_09: command [echo hello; echo bird] has stdout
 [task check] ["hello", "bird"]
@@ -243,15 +243,20 @@ Ssh user. Optional
 
 Ssh host. Optional, see also `hosts.raku`
 
-* `--verbose`
+* `--nocolor`
 
-Verbose mode. Not used now. Reserved for the future
+Disable color output. Optional
+
+* `--debug`
+
+Debug mode (produce a lot of useful, but low level info). Optional
 
 # Examples
 
 See:
 
 * `rules.raku` file
+
 * `rules/` folder
 
 # Author

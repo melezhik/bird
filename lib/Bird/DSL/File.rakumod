@@ -105,7 +105,7 @@ our sub file-has-permission ($path, %permissions-hash) is export {
 
   if %permissions-hash<write-all> {
 
-    my $head = mk-header "file $path is writtable by all";
+    my $head = mk-header "file $path is writable by all";
 
     update-cmd-file qq:to/HERE/;
     {cmd-header($head)}

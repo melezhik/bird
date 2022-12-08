@@ -2,6 +2,12 @@ Revision history for Bird
 
 {{$NEXT}}
 
+0.1.10  2022-12-08T12:10:00Z
+
+    Add debug (instead of verbose) option
+    Add nocolor option
+    Improve CI
+
 0.1.9  2022-12-06T16:58:00Z
 
     Mac OS support for package* functions

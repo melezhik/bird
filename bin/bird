@@ -11,11 +11,11 @@ use Bird::DSL::Command;
 use Bird::DSL::Service;
 use Bird::DSL::K8s;
 
-%*ENV<SP6_FORMAT_COLOR> = 1;
 
 sub MAIN (
 
-  Bool :$verbose = False, 
+  Bool :$debug = False, 
+  Bool :$nocolor = False, 
   Str  :$host,
   Str  :$user,
   Str  :$password,
@@ -24,6 +24,11 @@ sub MAIN (
 )
 
 {
+
+  %*ENV<SP6_FORMAT_COLOR> = 1 unless $nocolor;
+
+  %*ENV<SP6_DUMP_TASK_CODE> = 1 if $debug;
+
   my @hosts;
 
   if $host {
