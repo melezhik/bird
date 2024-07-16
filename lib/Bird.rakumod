@@ -2,7 +2,7 @@
 
 use v6;
 
-unit module Bird:ver<0.1.10>;
+unit module Bird:ver<0.1.11>;
 
 my $base-dir = "{%*ENV<HOME>}/.bird/{$*PID}{22.rand.Int.Str}";
 my $test-id;
@@ -18,7 +18,7 @@ unlink state-file() if state-file.IO ~~ :f;
 
 our sub cmd-file-init () is export {
   say "bird:: [init cmd file]";
-  update-cmd-file %?RESOURCES<utils.sh>.Str.IO.slurp;
+  update-cmd-file %?RESOURCES<utils.sh>.IO.slurp;
 }
 
 our sub log ($header,$footer) is export {

@@ -2,6 +2,9 @@ Revision history for Bird
 
 {{$NEXT}}
 
+    Fix for "Please use %?RESOURCES<key> 
+    directly instead."
+
 0.1.10  2022-12-08T12:10:00Z
 
     Add debug (instead of verbose) option
