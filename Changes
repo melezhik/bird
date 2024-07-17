@@ -2,6 +2,10 @@ Revision history for Bird
 
 {{$NEXT}}
 
+0.1.11  2024-07-17T11:30:00Z
+
+    Migrate ci pipeline to sparky
+
     Fix for "Please use %?RESOURCES<key> 
     directly instead."
 
